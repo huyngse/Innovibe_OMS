@@ -1,175 +1,131 @@
-"use client"
-
-import * as React from "react"
+import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
+  CircleUserRound,
+  RectangleEllipsis,
   SquareTerminal,
-} from "lucide-react"
+  Store,
+} from "lucide-react";
 
-import { NavMain } from "./nav-main"
-import { NavProjects } from "./nav-projects"
-import { NavUser } from "./nav-user"
-import { TeamSwitcher } from "./team-switcher"
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-// This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Admin",
+    email: "admin@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
+      title: "Tổng quan",
+      url: "/dashboard",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          title: "Dashboard",
+          url: "/dashboard",
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
+      title: "Cửa hàng",
+      url: "/product",
+      icon: Store,
+      isActive: true,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Sản phẩm",
+          url: "/product",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "Đơn đặt hàng",
+          url: "/order",
         },
         {
-          title: "Quantum",
-          url: "#",
+          title: "Danh mục hàng hóa",
+          url: "/category",
+        },
+        {
+          title: "Giảm giá, ưu đãi",
+          url: "/sale",
+        },
+        {
+          title: "Carousel",
+          url: "/carousel",
+        },
+        {
+          title: "Phường thức vận chuyển",
+          url: "/shipment",
         },
       ],
     },
     {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
+      title: "Người dùng",
+      url: "/sale",
+      icon: CircleUserRound,
+      isActive: true,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "Tài khoản",
+          url: "/sale",
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: "Nhân viên",
+          url: "/sale-create",
         },
         {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
+          title: "Khách hàng",
+          url: "/sale",
+        }
       ],
     },
     {
-      title: "Settings",
+      title: "Khác",
       url: "#",
-      icon: Settings2,
+      icon: RectangleEllipsis,
       items: [
         {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Blog",
+          url: "/blog",
         },
       ],
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SidebarMenu>
+          <SidebarMenuItem className="flex gap-2">
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <img src="/electric-guitar.png" className="size-4" />
+            </div>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="truncate font-semibold">Innovibe</span>
+              <span className="truncate text-xs">IMS</span>
+            </div>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

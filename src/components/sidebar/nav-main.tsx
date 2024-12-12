@@ -1,5 +1,3 @@
-"use client"
-
 import { ChevronRight, type LucideIcon } from "lucide-react"
 
 import {
@@ -34,7 +32,7 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>Quản lí</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
