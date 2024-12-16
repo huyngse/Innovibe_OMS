@@ -6,6 +6,7 @@ export type Product = {
   stockQuantity: number;
   categoryName: string;
   brandName: string;
+  productImages: ProductImage[];
   status:
     | "In Stock"
     | "Out of Stock"
