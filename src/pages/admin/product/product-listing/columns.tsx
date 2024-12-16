@@ -12,10 +12,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import { ReactNode } from "react";
 export const columns: ColumnDef<Product>[] = [
   {
     accessorKey: "productName",
     header: "Tên sản phẩm",
+    cell: ({ row }) => {
+      const product = row.original;
+      return (
+        <Link
+          to={`/product/${product.id}`}
+          className="font-semibold hover:text-blue-400 duration-75"
+        >
+          {product.productName}
+        </Link>
+      );
+    },
   },
   {
     accessorKey: "categoryName",
@@ -32,6 +45,30 @@ export const columns: ColumnDef<Product>[] = [
   {
     accessorKey: "status",
     header: "Trạng thái",
+    cell: ({ row }) => {
+      const product = row.original;
+      let badge: ReactNode = <Badge>{product.status}</Badge>;
+      if (product.status == "In Stock") {
+        badge = (
+          <Badge className="bg-green-100 border border-green-500 text-green-500 hover:bg-green-200">
+            Còn Hàng
+          </Badge>
+        );
+      } else if (product.status == "Out of Stock") {
+        badge = (
+          <Badge className="bg-red-100 border border-red-500 text-red-500 hover:bg-red-200">
+            Hết Hàng
+          </Badge>
+        );
+      } else if (product.status == "In Transit") {
+        badge = (
+          <Badge className="bg-blue-100 border border-blue-500 text-blue-500 hover:bg-blue-200">
+            Đang Vận Chuyển
+          </Badge>
+        );
+      }
+      return <div>{badge}</div>;
+    },
   },
   {
     id: "actions",
@@ -61,7 +98,9 @@ export const columns: ColumnDef<Product>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem>Thay đổi trạng thái</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-500">Xóa sản phẩm</DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500">
+              Xóa sản phẩm
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
