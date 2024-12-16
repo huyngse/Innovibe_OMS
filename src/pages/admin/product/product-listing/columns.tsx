@@ -112,7 +112,7 @@ export const columns: ColumnDef<Product>[] = [
               <Link to={`/product/${product.id}`}>Xem chi tiết sản phẩm</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link to={`/product/${product.id}`}>Cập nhật sản phẩm</Link>
+              <Link to={`/product/${product.id}/edit`}>Cập nhật sản phẩm</Link>
             </DropdownMenuItem>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>

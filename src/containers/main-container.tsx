@@ -1,3 +1,4 @@
+import NotFound from "@/components/page-not-found";
 import MainLayout from "@/layouts/main-layout";
 import CategoriesPage from "@/pages/admin/category/categories-page";
 import CreateCategoryPage from "@/pages/admin/category/create-category-page";
@@ -34,6 +35,7 @@ const MainContainter = () => {
         <Route path="/category" element={<CategoriesPage />} />
         <Route path="/category/create" element={<CreateCategoryPage />} />
         <Route path="/category/update" element={<UpdateCategoryPage />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </MainLayout>
   );
