@@ -8,7 +8,7 @@ const ProductsPage = () => {
   return (
     <div>
       <Header title="Tổng quan" href="/" currentPage="Danh sách sản phẩm" />
-      <div>
+      <div className="p-5">
         <DataTable columns={columns} data={data} />
       </div>
     </div>

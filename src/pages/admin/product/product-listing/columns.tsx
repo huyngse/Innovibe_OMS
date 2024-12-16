@@ -8,13 +8,28 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { ReactNode } from "react";
 export const columns: ColumnDef<Product>[] = [
+  {
+    header: "Hình ảnh",
+    cell: ({ row }) => {
+      const product = row.original;
+      return (
+        <div>
+          <img src={product.productImages[0].imageUrl} alt="" className="size-10 object-cover rounded"/>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "productName",
     header: "Tên sản phẩm",
@@ -36,7 +51,7 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: "brandName",
-    header: "Hãng",
+    header: "Thương hiệu",
   },
   {
     accessorKey: "stockQuantity",
@@ -96,7 +111,20 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem>
               <Link to={`/product/${product.id}`}>Xem chi tiết sản phẩm</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>Thay đổi trạng thái</DropdownMenuItem>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                Thay đổi trạng thái
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem>Còn hàng</DropdownMenuItem>
+                  <DropdownMenuItem>Hết hàng</DropdownMenuItem>
+                  <DropdownMenuItem>Đang vận chuyển</DropdownMenuItem>
+                  <DropdownMenuItem>Đợi duyệt</DropdownMenuItem>
+                  <DropdownMenuItem>Ngừng kinh doanh</DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-red-500">
               Xóa sản phẩm

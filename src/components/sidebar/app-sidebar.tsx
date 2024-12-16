@@ -1,8 +1,8 @@
 import * as React from "react";
 import {
+  ChartPie,
   CircleUserRound,
   RectangleEllipsis,
-  SquareTerminal,
   Store,
 } from "lucide-react";
 
@@ -28,7 +28,7 @@ const data = {
     {
       title: "Tổng quan",
       url: "/dashboard",
-      icon: SquareTerminal,
+      icon: ChartPie,
       isActive: true,
       items: [
         {
