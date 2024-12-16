@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "productName": "Fender Stratocaster",
+    "description": "The iconic electric guitar known for its versatility and classic tone.",
+    "price": 1299.99,
+    "stockQuantity": 25,
+    "categoryName": "Electric Guitars",
+    "brandName": "Fender",
+    "status": "In Stock",
+    "productImages": [
+      {
+        "id": 101,
+        "productId": 1,
+        "imageUrl": "https://picsum.photos/200/300",
+        "isPrimary": true,
+        "createdAt": "2023-01-15T08:00:00Z"
+      },
+      {
+        "id": 102,
+        "productId": 1,
+        "imageUrl": "https://picsum.photos/200/300",
+        "isPrimary": false,
+        "createdAt": "2023-01-15T08:00:00Z"
+      }
+    ],
+    "createdAt": "2023-01-10T08:00:00Z",
+    "updatedAt": "2023-12-01T08:00:00Z"
+  },
+  {
+    "id": 2,
+    "productName": "Gibson Les Paul",
+    "description": "A legendary electric guitar with a rich, warm tone and stunning design.",
+    "price": 2499.99,
+    "stockQuantity": 15,
+    "categoryName": "Electric Guitars",
+    "brandName": "Gibson",
+    "status": "In Stock",
+    "productImages": [
+      {
+        "id": 201,
+        "productId": 2,
+        "imageUrl": "https://picsum.photos/200/300",
+        "isPrimary": true,
+        "createdAt": "2023-02-20T08:00:00Z"
+      }
+    ],
+    "createdAt": "2023-02-15T08:00:00Z",
+    "updatedAt": "2023-12-01T08:00:00Z"
+  },
+  {
+    "id": 3,
+    "productName": "Yamaha FG800",
+    "description": "A budget-friendly acoustic guitar with excellent sound quality.",
+    "price": 199.99,
+    "stockQuantity": 50,
+    "categoryName": "Acoustic Guitars",
+    "brandName": "Yamaha",
+    "status": "In Stock",
+    "productImages": [
+      {
+        "id": 301,
+        "productId": 3,
+        "imageUrl": "https://picsum.photos/200/300",
+        "isPrimary": true,
+        "createdAt": "2023-03-05T08:00:00Z"
+      }
+    ],
+    "createdAt": "2023-03-01T08:00:00Z",
+    "updatedAt": "2023-12-01T08:00:00Z"
+  },
+  {
+    "id": 4,
+    "productName": "Ibanez RG550",
+    "description": "A high-performance electric guitar ideal for shredding.",
+    "price": 899.99,
+    "stockQuantity": 10,
+    "categoryName": "Electric Guitars",
+    "brandName": "Ibanez",
+    "status": "In Transit",
+    "productImages": [
+      {
+        "id": 401,
+        "productId": 4,
+        "imageUrl": "https://picsum.photos/200/300",
+        "isPrimary": true,
+        "createdAt": "2023-04-10T08:00:00Z"
+      }
+    ],
+    "createdAt": "2023-04-01T08:00:00Z",
+    "updatedAt": "2023-12-01T08:00:00Z"
+  },
+  {
+    "id": 5,
+    "productName": "Martin D-28",
+    "description": "A premium acoustic guitar known for its rich sound and craftsmanship.",
+    "price": 2999.99,
+    "stockQuantity": 5,
+    "categoryName": "Acoustic Guitars",
+    "brandName": "Martin",
+    "status": "Out of Stock",
+    "productImages": [
+      {
+        "id": 501,
+        "productId": 5,
+        "imageUrl": "https://picsum.photos/200/300",
+        "isPrimary": true,
+        "createdAt": "2023-05-15T08:00:00Z"
+      }
+    ],
+    "createdAt": "2023-05-01T08:00:00Z",
+    "updatedAt": "2023-12-01T08:00:00Z"
+  }
+]
