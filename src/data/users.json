@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "email": "john.doe@example.com",
+        "fullName": "John Doe",
+        "phoneNumber": "+1234567890",
+        "avatar": "https://example.com/avatars/john_doe.png",
+        "role": "Customer",
+        "status": "active",
+        "createdAt": "2023-01-15T10:00:00Z",
+        "updatedAt": "2023-12-01T12:00:00Z"
+    },
+    {
+        "id": 2,
+        "email": "jane.smith@example.com",
+        "fullName": "Jane Smith",
+        "phoneNumber": "+0987654321",
+        "avatar": "https://example.com/avatars/jane_smith.png",
+        "role": "Admin",
+        "status": "active",
+        "createdAt": "2022-08-22T09:30:00Z",
+        "updatedAt": "2023-11-15T14:00:00Z"
+    },
+    {
+        "id": 3,
+        "email": "alice.jones@example.com",
+        "fullName": "Alice Jones",
+        "phoneNumber": "+1122334455",
+        "avatar": "https://example.com/avatars/alice_jones.png",
+        "role": "Staff",
+        "status": "inactive",
+        "createdAt": "2023-05-10T08:15:00Z",
+        "updatedAt": "2023-12-10T16:45:00Z"
+    },
+    {
+        "id": 4,
+        "email": "bob.brown@example.com",
+        "fullName": "Bob Brown",
+        "phoneNumber": "+2233445566",
+        "avatar": "https://example.com/avatars/bob_brown.png",
+        "role": "Customer",
+        "status": "active",
+        "createdAt": "2023-03-05T11:20:00Z",
+        "updatedAt": "2023-12-12T10:30:00Z"
+    },
+    {
+        "id": 5,
+        "email": "mary.davis@example.com",
+        "fullName": "Mary Davis",
+        "phoneNumber": "+3344556677",
+        "avatar": "https://example.com/avatars/mary_davis.png",
+        "role": "Staff",
+        "status": "active",
+        "createdAt": "2022-11-11T07:45:00Z",
+        "updatedAt": "2023-12-15T09:00:00Z"
+    }
+]

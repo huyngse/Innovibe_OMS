@@ -71,21 +71,21 @@ const data = {
     },
     {
       title: "Người dùng",
-      url: "/sale",
+      url: "/user",
       icon: CircleUserRound,
       isActive: true,
       items: [
         {
           title: "Tài khoản",
-          url: "/sale",
+          url: "/user",
         },
         {
           title: "Nhân viên",
-          url: "/sale-create",
+          url: "/user/staff",
         },
         {
           title: "Khách hàng",
-          url: "/sale",
+          url: "/user/customer",
         }
       ],
     },
