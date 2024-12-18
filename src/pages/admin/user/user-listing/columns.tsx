@@ -1,7 +1,19 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { User } from "@/types/user"
-import { ColumnDef } from "@tanstack/react-table"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { User } from "@/types/user";
+import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 export const columns: ColumnDef<User>[] = [
@@ -20,15 +32,52 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "role",
     header: "Vai trò",
+    cell: ({ row }) => {
+      const user = row.original;
+      if (user.role == "Admin") {
+        return <Badge className="bg-blue-600 hover:bg-blue-500">Admin</Badge>;
+      }
+      if (user.role == "Customer") {
+        return (
+          <Badge className="bg-orange-600 hover:bg-orange-500">
+            Khách hàng
+          </Badge>
+        );
+      }
+      if (user.role == "Staff") {
+        return (
+          <Badge className="bg-green-600 hover:bg-green-500">Nhân viên</Badge>
+        );
+      }
+      return <Badge>{user.role}</Badge>;
+    },
   },
   {
     accessorKey: "status",
     header: "Trạng thái",
+    cell: ({ row }) => {
+      const user = row.original;
+      if (user.status == "Active") {
+        return (
+          <Badge className="text-green-500 bg-green-100 border-green-500 hover:bg-green-200">
+            Đã kích hoạt
+          </Badge>
+        );
+      }
+      if (user.status == "Inactive") {
+        return (
+          <Badge className="text-red-500 bg-red-100 border-red-500 hover:bg-red-200">
+            Đã hủy kích hoạt
+          </Badge>
+        );
+      }
+      return <Badge variant="outline">{user.status}</Badge>;
+    },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const product = row.original;
+      const user = row.original;
 
       return (
         <DropdownMenu>
@@ -41,18 +90,16 @@ export const columns: ColumnDef<User>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(product.id.toString())
-              }
+              onClick={() => navigator.clipboard.writeText(user.id.toString())}
             >
               Sao chép ID tài khoản
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link to={`/product/${product.id}`}>Xem chi tiết tải khoản</Link>
+              <Link to={`/product/${user.id}`}>Xem chi tiết tải khoản</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link to={`/product/${product.id}/edit`}>Cập nhật thông tin</Link>
+              <Link to={`/product/${user.id}/edit`}>Cập nhật thông tin</Link>
             </DropdownMenuItem>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
@@ -74,4 +121,4 @@ export const columns: ColumnDef<User>[] = [
       );
     },
   },
-]
+];

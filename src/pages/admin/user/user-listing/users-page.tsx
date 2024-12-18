@@ -1,9 +1,9 @@
 import Header from "@/components/header";
-import { DataTable } from "./data-table";
 import users from "@/data/users.json";
-import { User } from "@/types/user";
+import { DataTable } from "./data-table";
 import { columns } from "./columns";
-const UsersPage = () => {
+import { User } from "@/types/user";
+const UsersListingPage = () => {
   const data = users as User[];
   return (
     <div>
@@ -15,4 +15,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default UsersListingPage;
