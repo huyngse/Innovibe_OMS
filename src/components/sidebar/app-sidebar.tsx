@@ -64,7 +64,7 @@ const data = {
           url: "/carousel",
         },
         {
-          title: "Phường thức vận chuyển",
+          title: "Phương thức vận chuyển",
           url: "/shipment",
         },
       ],
