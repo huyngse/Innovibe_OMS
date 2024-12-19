@@ -9,8 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
-
-const ToolPanel = () => {
+const ToolsPanel = () => {
   return (
     <div className="grid grid-cols-12 pb-5 gap-5">
       <div className="col-span-4 flex gap-3">
@@ -23,20 +22,18 @@ const ToolPanel = () => {
       <div className="col-span-3">
         <Select>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Trạng thái" />
+            <SelectValue placeholder="Vai trò" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="*">Tất cả</SelectItem>
-            <SelectItem value="In Stock">Còn hàng</SelectItem>
-            <SelectItem value="Out of Stock">Hết hàng</SelectItem>
-            <SelectItem value="In Transit">Đang vận chuyển</SelectItem>
-            <SelectItem value="Pending">Đợi duyệt</SelectItem>
-            <SelectItem value="Discontinued">Ngừng kinh doanh</SelectItem>
+            <SelectItem value="Customer">Khách hàng</SelectItem>
+            <SelectItem value="Staff">Nhân viên</SelectItem>
+            <SelectItem value="Admin">Admin</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="col-span-2 flex">
-        <Link to={'/create-product'} className="w-full">
+        <Link to={"/create-user"} className="w-full">
           <Button className="w-full flex gap-3 items-center">
             <Plus />
             Tạo mới
@@ -47,4 +44,4 @@ const ToolPanel = () => {
   );
 };
 
-export default ToolPanel;
+export default ToolsPanel;
