@@ -41,6 +41,7 @@ export const columns: ColumnDef<Product>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
         >
           Tên sản phẩm
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -66,6 +67,7 @@ export const columns: ColumnDef<Product>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
         >
           Danh mục
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -80,6 +82,7 @@ export const columns: ColumnDef<Product>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
         >
           Thương hiệu
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -94,6 +97,7 @@ export const columns: ColumnDef<Product>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
         >
           s.lg tồn kho
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -108,6 +112,7 @@ export const columns: ColumnDef<Product>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
         >
           Trạng thái
           <ArrowUpDown className="ml-2 h-4 w-4" />
