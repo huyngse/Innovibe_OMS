@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,14 +25,28 @@ export const columns: ColumnDef<Product>[] = [
       const product = row.original;
       return (
         <div>
-          <img src={product.productImages[0].imageUrl} alt="" className="size-10 object-cover rounded"/>
+          <img
+            src={product.productImages[0].imageUrl}
+            alt=""
+            className="size-10 object-cover rounded"
+          />
         </div>
       );
     },
   },
   {
     accessorKey: "productName",
-    header: "Tên sản phẩm",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Tên sản phẩm
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const product = row.original;
       return (
@@ -47,19 +61,59 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: "categoryName",
-    header: "Danh mục",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Danh mục
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "brandName",
-    header: "Thương hiệu",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Thương hiệu
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "stockQuantity",
-    header: "s.lg tồn kho",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          s.lg tồn kho
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "status",
-    header: "Trạng thái",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Trạng thái
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const product = row.original;
       let badge: ReactNode = <Badge>{product.status}</Badge>;
