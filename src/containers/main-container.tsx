@@ -23,16 +23,16 @@ const MainContainter = () => {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/user" element={<UsersPage />} />
         <Route path="/user/:userId" element={<UserDetail />} />
-        <Route path="/user/create" element={<CreateUserPage />} />
-        <Route path="/user/:userId/edit" element={<UpdateUserPage />} />
+        <Route path="/create-user" element={<CreateUserPage />} />
+        <Route path="/edit-user/:userId" element={<UpdateUserPage />} />
         <Route path="/product" element={<ProductsPage />} />
         <Route path="/product/:productId" element={<ProductDetailPage />} />
-        <Route path="/product/create" element={<CreateProductPage />} />
-        <Route path="/product/:productId/edit" element={<UpdateProductPage />} />
+        <Route path="/create-product" element={<CreateProductPage />} />
+        <Route path="/edit-product/:productId" element={<UpdateProductPage />} />
         <Route path="/order" element={<OrdersPage />} />
         <Route path="/order/:orderId" element={<OrderDetailPage />} />
         <Route path="/category" element={<CategoriesPage />} />
-        <Route path="/category/create" element={<CreateCategoryPage />} />
+        <Route path="/create-category" element={<CreateCategoryPage />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </MainLayout>
