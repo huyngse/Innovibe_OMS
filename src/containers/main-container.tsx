@@ -1,7 +1,6 @@
 import NotFound from "@/components/page-not-found";
 import MainLayout from "@/layouts/main-layout";
 import CategoriesPage from "@/pages/admin/category/categories-page";
-import CreateCategoryPage from "@/pages/admin/category/create-category-page";
 import DashboardPage from "@/pages/admin/dashboard/dashboard-page";
 import OrderDetailPage from "@/pages/admin/order/order-detail-page";
 import OrdersPage from "@/pages/admin/order/orders-page";
@@ -32,7 +31,6 @@ const MainContainter = () => {
         <Route path="/order" element={<OrdersPage />} />
         <Route path="/order/:orderId" element={<OrderDetailPage />} />
         <Route path="/category" element={<CategoriesPage />} />
-        <Route path="/create-category" element={<CreateCategoryPage />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </MainLayout>

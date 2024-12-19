@@ -10,20 +10,53 @@ import {
 import { formatDate } from "@/lib/datetime";
 import { Category } from "@/types/category";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 export const columns: ColumnDef<Category>[] = [
   {
     accessorKey: "id",
-    header: "ID",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
+        >
+          ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "categoryName",
-    header: "Tên danh mục",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
+        >
+          Tên danh mục
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "createdAt",
-    header: "Ngày tạo",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
+        >
+          Ngày tạo
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const category = row.original;
       return <div>{formatDate(new Date(category.createdAt))}</div>;
@@ -31,7 +64,18 @@ export const columns: ColumnDef<Category>[] = [
   },
   {
     accessorKey: "updatedAt",
-    header: "Ngày chỉnh sửa",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
+        >
+          Ngày chỉnh sửa
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const category = row.original;
       return <div>{formatDate(new Date(category.updatedAt))}</div>;
