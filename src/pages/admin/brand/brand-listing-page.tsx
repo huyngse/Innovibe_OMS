@@ -7,13 +7,13 @@ import { Brand } from "@/types/brand";
 const BrandListingPage = () => {
   const data = brands as Brand[];
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Header
         title="Tổng quan"
         href="/"
         currentPage="Danh sách danh mục hàng hóa"
       />
-      <div className="p-5">
+      <div className="p-5 flex-1 overflow-auto">
         <ToolsPanel />
         <DataTable columns={columns} data={data} />
       </div>
