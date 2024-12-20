@@ -56,6 +56,10 @@ const data = {
           url: "/category",
         },
         {
+          title: "Thương hiệu",
+          url: "/brand",
+        },
+        {
           title: "Giảm giá, ưu đãi",
           url: "/sale",
         },

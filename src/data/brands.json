@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "brandName": "Fender",
+    "description": "Known for iconic electric guitars like the Stratocaster and Telecaster, Fender has been a staple in rock and roll since the 1940s.",
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  },
+  {
+    "id": 2,
+    "brandName": "Gibson",
+    "description": "Famous for its Les Paul and SG models, Gibson is recognized for its high-quality craftsmanship and rich sound.",
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  },
+  {
+    "id": 3,
+    "brandName": "Yamaha",
+    "description": "Yamaha offers a wide range of guitars, known for their affordability and quality, catering to beginners and professionals alike.",
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  },
+  {
+    "id": 4,
+    "brandName": "Ibanez",
+    "description": "Ibanez is popular among rock and metal musicians, known for its innovative designs and fast-playing necks.",
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  },
+  {
+    "id": 5,
+    "brandName": "Martin",
+    "description": "Martin guitars are renowned for their acoustic models, particularly popular among folk and country musicians for their warm sound.",
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  },
+  {
+    "id": 6,
+    "brandName": "Taylor",
+    "description": "Taylor is known for its modern acoustic guitars, focusing on playability and tonal clarity, appealing to a wide range of players.",
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  },
+  {
+    "id": 7,
+    "brandName": "PRS",
+    "description": "Paul Reed Smith guitars are known for their beautiful finishes and versatile sound, blending features from both Fender and Gibson.",
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01"
+  }
+]

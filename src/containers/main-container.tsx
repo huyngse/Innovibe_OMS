@@ -1,5 +1,6 @@
 import NotFound from "@/components/page-not-found";
 import MainLayout from "@/layouts/main-layout";
+import BrandListingPage from "@/pages/admin/brand/brand-listing-page";
 import CategoriesPage from "@/pages/admin/category/categories-page";
 import DashboardPage from "@/pages/admin/dashboard/dashboard-page";
 import OrderDetailPage from "@/pages/admin/order/order-detail-page";
@@ -27,10 +28,14 @@ const MainContainter = () => {
         <Route path="/product" element={<ProductsPage />} />
         <Route path="/product/:productId" element={<ProductDetailPage />} />
         <Route path="/create-product" element={<CreateProductPage />} />
-        <Route path="/edit-product/:productId" element={<UpdateProductPage />} />
+        <Route
+          path="/edit-product/:productId"
+          element={<UpdateProductPage />}
+        />
         <Route path="/order" element={<OrdersPage />} />
         <Route path="/order/:orderId" element={<OrderDetailPage />} />
         <Route path="/category" element={<CategoriesPage />} />
+        <Route path="/brand" element={<BrandListingPage />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </MainLayout>
