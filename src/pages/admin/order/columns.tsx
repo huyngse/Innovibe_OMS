@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { orderStatus } from "@/constants/order-status";
 import { formatCurrencyVND } from "@/lib/currency";
 import { formatDateTime } from "@/lib/datetime";
 import { Order } from "@/types/order";
@@ -27,6 +29,14 @@ export const columns: ColumnDef<Order>[] = [
           Mã đơn hàng
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const order = row.original;
+      return (
+        <Link to={`/order/${order.id}`} className="font-semibold">
+          {order.orderId}
+        </Link>
       );
     },
   },
@@ -117,6 +127,54 @@ export const columns: ColumnDef<Order>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ row }) => {
+      const order = row.original;
+      let status =
+        orderStatus.find((i) => i.value == order.status)?.label ?? order.status;
+      if (order.status == "Cancelled") {
+        return (
+          <Badge className="text-gray-500 bg-gray-100 border-gray-500 hover:bg-gray-200">
+            {status}
+          </Badge>
+        );
+      }
+      if (order.status == "Delivered") {
+        return (
+          <Badge className="text-green-500 bg-green-100 border-green-500 hover:bg-green-200">
+            {status}
+          </Badge>
+        );
+      }
+      if (order.status == "Pending") {
+        return (
+          <Badge className="text-yellow-500 bg-yellow-100 border-yellow-500 hover:bg-yellow-200">
+            {status}
+          </Badge>
+        );
+      }
+      if (order.status == "Processing") {
+        return (
+          <Badge className="text-purple-500 bg-purple-100 border-purple-500 hover:bg-purple-200">
+            {status}
+          </Badge>
+        );
+      }
+      if (order.status == "Returned") {
+        return (
+          <Badge className="text-orange-500 bg-orange-100 border-orange-500 hover:bg-orange-200">
+            {status}
+          </Badge>
+        );
+      }
+      if (order.status == "Shipped") {
+        return (
+          <Badge className="text-blue-500 bg-blue-100 border-blue-500 hover:bg-blue-200">
+            {status}
+          </Badge>
+        );
+      }
+      return <div>{status}</div>;
     },
   },
   {

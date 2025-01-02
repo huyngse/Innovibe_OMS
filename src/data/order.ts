@@ -65,5 +65,117 @@ export const guitarOrders: Order[] = [
             }
         ],
         status: "Delivered"
-    }
+    },
+    {
+        id: 3,
+        orderId: "ORD-20240120-0003",
+        customerName: "Bob Smith",
+        email: "bobsmith@gmail.com",
+        phone: "05417914919",
+        shippingAddress: "23015 Outer Dr, Allen Park, Michigan, 48101",
+        shippingFee: 10_000,
+        orderDate: "2024-01-20",
+        paymentDate: "2024-01-20",
+        shippingDate: "2024-01-21",
+        deliveryDate: "2024-01-22",
+        paymentMethod: "Cash",
+        items: [
+            {
+                id: 3,
+                productName:
+                    "Ibanez Prestige AZ2204N Electric Guitar Prussian Blue Metallic",
+                status: "Available",
+                price: 11_100_000,
+                image: guitarImage2,
+                quantity: 1,
+                category: "Electric guitar"
+
+            }
+        ],
+        status: "Cancelled"
+    },
+    {
+        id: 4,
+        orderId: "ORD-20240120-0004",
+        customerName: "Bob Smith",
+        email: "bobsmith@gmail.com",
+        phone: "05417914919",
+        shippingAddress: "23015 Outer Dr, Allen Park, Michigan, 48101",
+        shippingFee: 10_000,
+        orderDate: "2024-01-20",
+        paymentDate: "2024-01-20",
+        shippingDate: "2024-01-21",
+        deliveryDate: "2024-01-22",
+        paymentMethod: "Cash",
+        items: [
+            {
+                id: 3,
+                productName:
+                    "Ibanez Prestige AZ2204N Electric Guitar Prussian Blue Metallic",
+                status: "Available",
+                price: 11_100_000,
+                image: guitarImage2,
+                quantity: 1,
+                category: "Electric guitar"
+
+            }
+        ],
+        status: "Pending"
+    },
+    {
+        id: 5,
+        orderId: "ORD-20240120-0005",
+        customerName: "Bob Smith",
+        email: "bobsmith@gmail.com",
+        phone: "05417914919",
+        shippingAddress: "23015 Outer Dr, Allen Park, Michigan, 48101",
+        shippingFee: 10_000,
+        orderDate: "2024-01-20",
+        paymentDate: "2024-01-20",
+        shippingDate: "2024-01-21",
+        deliveryDate: "2024-01-22",
+        paymentMethod: "Cash",
+        items: [
+            {
+                id: 3,
+                productName:
+                    "Ibanez Prestige AZ2204N Electric Guitar Prussian Blue Metallic",
+                status: "Available",
+                price: 11_100_000,
+                image: guitarImage2,
+                quantity: 1,
+                category: "Electric guitar"
+
+            }
+        ],
+        status: "Processing"
+    },
+    {
+        id: 6,
+        orderId: "ORD-20240120-0006",
+        customerName: "Bob Smith",
+        email: "bobsmith@gmail.com",
+        phone: "05417914919",
+        shippingAddress: "23015 Outer Dr, Allen Park, Michigan, 48101",
+        shippingFee: 10_000,
+        orderDate: "2024-01-20",
+        paymentDate: "2024-01-20",
+        shippingDate: "2024-01-21",
+        deliveryDate: "2024-01-22",
+        paymentMethod: "Cash",
+        items: [
+            {
+                id: 3,
+                productName:
+                    "Ibanez Prestige AZ2204N Electric Guitar Prussian Blue Metallic",
+                status: "Available",
+                price: 11_100_000,
+                image: guitarImage2,
+                quantity: 1,
+                category: "Electric guitar"
+
+            }
+        ],
+        status: "Returned"
+    },
 ];
