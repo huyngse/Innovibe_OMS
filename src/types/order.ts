@@ -2,6 +2,7 @@ export type Order = {
     id: number,
     orderId: string,
     customerName: string,
+    email: string,
     orderDate: string,
     paymentDate?: string,
     shippingDate?: string,
