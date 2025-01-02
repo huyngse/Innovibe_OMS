@@ -17,7 +17,7 @@ export const orderStatus = [
     },
     {
         value: "Delivered",
-        label: "Hoàn thành",
+        label: "Đã nhận hàng",
     },
     {
         value: "Cancelled",
