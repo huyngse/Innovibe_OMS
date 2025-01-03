@@ -207,6 +207,13 @@ export const columns: ColumnDef<Order>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() =>
+                navigator.clipboard.writeText(order.orderId.toString())
+              }
+            >
+              Sao chép mã đơn hàng
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <Link to={`/order/${order.id}`}>
               <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
