@@ -5,15 +5,15 @@ export const orderStatus = [
     },
     {
         value: "Pending",
-        label: "Chờ thanh toán",
+        label: "Chờ xác nhận",
     },
     {
         value: "Processing",
-        label: "Chuẩn bị hàng",
+        label: "Chờ lấy hàng",
     },
     {
         value: "Shipped",
-        label: "Vận chuyển",
+        label: "Đang vận chuyển",
     },
     {
         value: "Delivered",
