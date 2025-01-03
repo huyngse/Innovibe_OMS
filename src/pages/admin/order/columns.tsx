@@ -71,7 +71,7 @@ export const columns: ColumnDef<Order>[] = [
     },
   },
   {
-    id: "totals",
+    accessorKey: "totals",
     header: ({ column }) => {
       return (
         <Button
@@ -93,6 +93,21 @@ export const columns: ColumnDef<Order>[] = [
       );
       const total = subtotal + order.shippingFee;
       return <div>{formatCurrencyVND(total)}</div>;
+    },
+    sortingFn: (rowA, rowB) => {
+      const totalA =
+        rowA.original.items.reduce(
+          (accumlator, currentValue) =>
+            accumlator + currentValue.price * currentValue.quantity,
+          0
+        ) + rowA.original.shippingFee;
+      const totalB =
+        rowB.original.items.reduce(
+          (accumlator, currentValue) =>
+            accumlator + currentValue.price * currentValue.quantity,
+          0
+        ) + rowB.original.shippingFee;
+      return totalA - totalB;
     },
   },
   {
