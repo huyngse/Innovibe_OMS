@@ -15,6 +15,7 @@ import { Order } from "@/types/order";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -208,9 +209,10 @@ export const columns: ColumnDef<Order>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(order.orderId.toString())
-              }
+              onClick={() => {
+                navigator.clipboard.writeText(order.orderId.toString());
+                toast("Đã sao chép.")
+              }}
             >
               Sao chép mã đơn hàng
             </DropdownMenuItem>

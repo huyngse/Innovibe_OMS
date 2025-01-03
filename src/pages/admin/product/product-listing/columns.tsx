@@ -18,6 +18,7 @@ import {
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { ReactNode } from "react";
+import { toast } from "sonner";
 export const columns: ColumnDef<Product>[] = [
   {
     header: "Hình ảnh",
@@ -160,9 +161,10 @@ export const columns: ColumnDef<Product>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(product.id.toString())
-              }
+              onClick={() => {
+                navigator.clipboard.writeText(product.id.toString());
+                toast("Đã sao chép.");
+              }}
             >
               Sao chép ID sản phẩm
             </DropdownMenuItem>

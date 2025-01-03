@@ -16,6 +16,7 @@ import { User } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "email",
@@ -145,7 +146,10 @@ export const columns: ColumnDef<User>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.id.toString())}
+              onClick={() => {
+                navigator.clipboard.writeText(user.id.toString());
+                toast("Đã sao chép.");
+              }}
             >
               Sao chép ID tài khoản
             </DropdownMenuItem>
