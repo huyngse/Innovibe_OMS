@@ -44,6 +44,21 @@ export const columns: ColumnDef<Category>[] = [
     },
   },
   {
+    accessorKey: "totalProducts",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="p-0 m-0 w-full justify-start"
+        >
+          Tổng số sản phẩm
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
     accessorKey: "createdAt",
     header: ({ column }) => {
       return (
