@@ -20,5 +20,5 @@ export type Order = {
         image: string,
         quantity: number,
     }[],
-    status: "Shipped" | "Pending" | "Processing" | "Delivered" | "Cancelled" | "Returned"
+    status: "Placed" | "Paid" | "Shipped" | "Pending" | "Processing" | "Delivered" | "Cancelled" | "Returned"
 }
