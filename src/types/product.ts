@@ -4,7 +4,9 @@ export type Product = {
   description: string;
   price: number;
   stockQuantity: number;
+  categoryId: number;
   categoryName: string;
+  brandId: number;
   brandName: string;
   productImages: ProductImage[];
   status:
