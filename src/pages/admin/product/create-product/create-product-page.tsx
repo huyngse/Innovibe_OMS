@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import Header from "@/components/header";
 import StatusInfo from "../status-info";
 import DropZone from "./drop-zone";
+import Tiptap from "@/components/tiptap/Tiptap";
 
 const CreateProductPage = () => {
   const ProductImageSchema = z.object({
@@ -83,20 +84,7 @@ const CreateProductPage = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Mô tả sản phẩm</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Mô tả sản phẩm" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
+              <FormField
               control={form.control}
               name="price"
               render={({ field }) => (
@@ -108,6 +96,19 @@ const CreateProductPage = () => {
                       {...field}
                       type="number"
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="col-span-2">
+                  <FormLabel>Mô tả sản phẩm</FormLabel>
+                  <FormControl>
+                    <Tiptap value={field.value} onChange={(value: string) => form.setValue('description', value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -183,7 +184,7 @@ const CreateProductPage = () => {
             />
             <FormField
               control={form.control}
-              name="categoryId"
+              name="status"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Trạng thái sản phẩm</FormLabel>
