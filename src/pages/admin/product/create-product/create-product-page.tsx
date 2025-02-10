@@ -20,7 +20,9 @@ import {
 
 import { Input } from "@/components/ui/input";
 import Header from "@/components/header";
-import StatusInfo from "./status-info";
+import StatusInfo from "../status-info";
+import DropZone from "./drop-zone";
+
 const CreateProductPage = () => {
   const ProductImageSchema = z.object({
     url: z.string().url(),
@@ -57,7 +59,7 @@ const CreateProductPage = () => {
     console.log(values);
   }
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col">
       <Header title="Sản phẩm" href="/product" currentPage="Tạo sản phẩm mới" />
       <div className="p-5 flex-1 overflow-auto">
         <Form {...form}>
@@ -65,6 +67,9 @@ const CreateProductPage = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-1 grid grid-cols-2 gap-3"
           >
+            <div className="col-span-2">
+              <DropZone />
+            </div>
             <FormField
               control={form.control}
               name="productName"
@@ -208,7 +213,9 @@ const CreateProductPage = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="col-span-2">Tạo</Button>
+            <Button type="submit" className="col-span-2">
+              Tạo
+            </Button>
           </form>
         </Form>
       </div>

@@ -5,7 +5,7 @@ import CategoriesPage from "@/pages/admin/category/categories-page";
 import DashboardPage from "@/pages/admin/dashboard/dashboard-page";
 import OrderDetailPage from "@/pages/admin/order/order-detail-page";
 import OrdersPage from "@/pages/admin/order/orders-page";
-import CreateProductPage from "@/pages/admin/product/create-product-page";
+import CreateProductPage from "@/pages/admin/product/create-product/create-product-page";
 import ProductDetailPage from "@/pages/admin/product/product-detail-page";
 import ProductsPage from "@/pages/admin/product/product-listing/products-page";
 import UpdateProductPage from "@/pages/admin/product/update-product-page";
