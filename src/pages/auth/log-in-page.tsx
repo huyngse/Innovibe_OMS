@@ -18,13 +18,18 @@ import googleLogo from "@/assets/images/google.webp";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import loginBackground from "@/assets/images/login-background.jpg";
+import { login } from "@/lib/api/auth-api";
+import { toast } from "react-toastify";
+import { Loader } from "lucide-react";
 const formSchema = z.object({
   email: z.string().email("Email không hợp lệ"),
   password: z.string().min(5, "Mật khẩu phải chứa ít nhất 5 ký tự"),
 });
 const LoginPage = () => {
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,14 +37,42 @@ const LoginPage = () => {
       password: "",
     },
   });
-  const handleSubmit = () => {
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("Remember me: " + rememberMe);
-    navigate("/");
+    setError("");
+    setIsSubmitting(true);
+    const result = await login(values.email, values.password);
+    if (result.error) {
+      setError(
+        result.error == "Request failed with status code 401"
+          ? "Sai email hoặc mật khẩu"
+          : result.error
+      );
+    } else {
+      localStorage.setItem("accessToken", result.data);
+      toast.success("Đăng nhập thành công", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+    setIsSubmitting(false);
   };
   return (
     <div
       className="grid grid-cols-12"
-      style={{ backgroundImage: `url(${loginBackground})`, backgroundSize: "cover" }}
+      style={{
+        backgroundImage: `url(${loginBackground})`,
+        backgroundSize: "cover",
+      }}
     >
       <div className="col-span-6 h-screen overflow-auto rounded-e shadow-md bg-white">
         <div className="bg-white min-h-screen py-16 px-24">
@@ -87,6 +120,9 @@ const LoginPage = () => {
                   </FormItem>
                 )}
               />
+              {
+                error && <div className="text-red-500">{error}</div>
+              }
               <div className="flex justify-between mt-5">
                 <div className="items-top flex space-x-2">
                   <Checkbox
@@ -103,15 +139,21 @@ const LoginPage = () => {
                     Ghi nhớ tài khoản này
                   </label>
                 </div>
-                <Link to="/recover-password" className="text-sm text-orange-500">
+                <Link
+                  to="/recover-password"
+                  className="text-sm text-orange-500"
+                >
                   Quên mật khẩu?
                 </Link>
               </div>
               <Button
                 className="mt-5 bg-orange-500 hover:bg-orange-600 text-white font-bold p-6 focus:outline-none focus:shadow-outline w-full"
                 type="submit"
+                disabled={isSubmitting}
               >
-                Đăng Nhập
+                {
+                  isSubmitting ? <Loader className="animate-spin"/> : "Đăng Nhập"
+                }
               </Button>
             </form>
           </Form>

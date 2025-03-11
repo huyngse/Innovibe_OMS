@@ -1,3 +1,4 @@
+import Loader from "@/components/loader";
 import NotFound from "@/components/page-not-found";
 import MainLayout from "@/layouts/main-layout";
 import BrandListingPage from "@/pages/admin/brand/brand-listing-page";
@@ -13,9 +14,33 @@ import CreateUserPage from "@/pages/admin/user/create-user-page";
 import UpdateUserPage from "@/pages/admin/user/update-user-page";
 import UserDetail from "@/pages/admin/user/user-detail-page";
 import UsersPage from "@/pages/admin/user/user-listing/users-page";
-import { Route, Routes } from "react-router-dom";
+import useAuthStore from "@/stores/use-auth-store";
+import { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 const MainContainter = () => {
+  const authStore = useAuthStore();
+  const token = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      authStore.fetchUserInfo();
+    }
+  }, []);
+
+  if (authStore.loading) {
+    return <Loader />;
+  }
+
+  if (!token || !authStore.user) {
+    navigate("/log-in");
+  }
+
+  if (authStore.user?.role != "Admin") {
+    authStore.logout();
+    navigate("/unauthorize");
+  }
+
   return (
     <MainLayout>
       <Routes>

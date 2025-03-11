@@ -1,28 +1,32 @@
 export type Product = {
-  id: number;
-  productName: string;
-  description: string;
-  price: number;
-  stockQuantity: number;
-  categoryId: number;
-  categoryName: string;
-  brandId: number;
-  brandName: string;
-  productImages: ProductImage[];
-  status:
-    | "In Stock"
-    | "Out of Stock"
-    | "Pending"
-    | "In Transit"
-    | "Discontinued";
-  createdAt: string;
-  updatedAt: string;
-};
+  productId: number,
+  name: string,
+  status: | "In Stock"
+  | "Out of Stock"
+  | "Pending"
+  | "In Transit"
+  | "Discontinued",
+  price: number,
+  quantity: number,
+  images: ProductImage[],
+  description: string,
+  discount?: number,
+  createAt: string,
+  brand: {
+    brandId: number,
+    name: string,
+    description: string,
+  },
+  category: {
+    categoryId: number,
+    name: string,
+    description: string,
+  },
+}
 
 export type ProductImage = {
-  id: number;
-  productId: number;
-  imageUrl: string;
-  isPrimary: boolean;
-  createdAt: string;
-};
+  imageId: number,
+  productId: number,
+  imageURL: string,
+  position: number,
+}
