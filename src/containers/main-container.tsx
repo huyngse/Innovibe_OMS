@@ -28,19 +28,20 @@ const MainContainter = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (authStore.user != null && authStore.user?.role != "Admin") {
+      navigate("/unauthorize");
+      return;
+    }
+    if (!token || authStore.error) {
+      navigate("/log-in");
+      return;
+    }
+  }, [authStore.user, token, authStore.error]);
+
   if (authStore.loading) {
     return <Loader />;
   }
-
-  if (!token || !authStore.user) {
-    navigate("/log-in");
-  }
-
-  if (authStore.user && authStore.user?.role != "Admin") {
-    authStore.logout();
-    navigate("/unauthorize");
-  }
-
   return (
     <MainLayout>
       <Routes>
