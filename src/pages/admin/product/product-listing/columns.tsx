@@ -18,7 +18,8 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { ReactNode } from "react";
 import { toast } from "sonner";
-export const columns: ColumnDef<any>[] = [
+import { Product } from "@/types/product";
+export const columns: ColumnDef<Product>[] = [
   {
     header: "Hình ảnh",
     cell: ({ row }) => {
@@ -26,7 +27,7 @@ export const columns: ColumnDef<any>[] = [
       return (
         <div>
           <img
-            src={product.productImages[0].imageUrl}
+            src={product.images[0].imageURL}
             alt=""
             className="size-10 object-cover rounded"
           />
@@ -35,7 +36,7 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "productName",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -52,16 +53,16 @@ export const columns: ColumnDef<any>[] = [
       const product = row.original;
       return (
         <Link
-          to={`/product/${product.id}`}
+          to={`/product/${product.productId}`}
           className="font-semibold hover:text-blue-400 duration-75"
         >
-          {product.productName}
+          {product.name}
         </Link>
       );
     },
   },
   {
-    accessorKey: "categoryName",
+    id: "categoryName",
     header: ({ column }) => {
       return (
         <Button
@@ -74,9 +75,10 @@ export const columns: ColumnDef<any>[] = [
         </Button>
       );
     },
+    accessorFn: (value) => value.category.name,
   },
   {
-    accessorKey: "brandName",
+    id: "brandName",
     header: ({ column }) => {
       return (
         <Button
@@ -89,9 +91,10 @@ export const columns: ColumnDef<any>[] = [
         </Button>
       );
     },
+    accessorFn: (value) => value.brand.name,
   },
   {
-    accessorKey: "stockQuantity",
+    accessorKey: "quantity",
     header: ({ column }) => {
       return (
         <Button
@@ -161,7 +164,7 @@ export const columns: ColumnDef<any>[] = [
             <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                navigator.clipboard.writeText(product.id.toString());
+                navigator.clipboard.writeText(product.productId.toString());
                 toast("Đã sao chép.");
               }}
             >
@@ -169,10 +172,10 @@ export const columns: ColumnDef<any>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link to={`/product/${product.id}`}>Xem chi tiết sản phẩm</Link>
+              <Link to={`/product/${product.productId}`}>Xem chi tiết sản phẩm</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link to={`/product/${product.id}/edit`}>Cập nhật sản phẩm</Link>
+              <Link to={`/product/${product.productId}/edit`}>Cập nhật sản phẩm</Link>
             </DropdownMenuItem>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>

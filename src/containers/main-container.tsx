@@ -36,7 +36,7 @@ const MainContainter = () => {
     navigate("/log-in");
   }
 
-  if (authStore.user?.role != "Admin") {
+  if (authStore.user && authStore.user?.role != "Admin") {
     authStore.logout();
     navigate("/unauthorize");
   }
