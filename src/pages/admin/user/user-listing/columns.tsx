@@ -12,12 +12,12 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User } from "@/types/user";
+import { Account } from "@/types/account";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: "email",
     header: ({ column }) => {
@@ -49,21 +49,6 @@ export const columns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "phoneNumber",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="p-0 m-0 w-full justify-start"
-        >
-          Số điện thoại
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
     accessorKey: "role",
     header: ({ column }) => {
       return (
@@ -82,7 +67,7 @@ export const columns: ColumnDef<User>[] = [
       if (user.role == "Admin") {
         return <Badge className="bg-blue-600 hover:bg-blue-500">Admin</Badge>;
       }
-      if (user.role == "Customer") {
+      if (user.role == "User") {
         return (
           <Badge className="bg-orange-600 hover:bg-orange-500">
             Khách hàng
@@ -97,39 +82,39 @@ export const columns: ColumnDef<User>[] = [
       return <Badge>{user.role}</Badge>;
     },
   },
-  {
-    accessorKey: "status",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="p-0 m-0 w-full justify-start"
-        >
-          Trạng thái
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const user = row.original;
-      if (user.status == "Active") {
-        return (
-          <Badge className="text-green-500 bg-green-100 border-green-500 hover:bg-green-200">
-            Đã kích hoạt
-          </Badge>
-        );
-      }
-      if (user.status == "Inactive") {
-        return (
-          <Badge className="text-red-500 bg-red-100 border-red-500 hover:bg-red-200">
-            Đã hủy kích hoạt
-          </Badge>
-        );
-      }
-      return <Badge variant="outline">{user.status}</Badge>;
-    },
-  },
+  // {
+  //   accessorKey: "status",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //         className="p-0 m-0 w-full justify-start"
+  //       >
+  //         Trạng thái
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     );
+  //   },
+  //   cell: ({ row }) => {
+  //     const user = row.original;
+  //     if (user.status == "Active") {
+  //       return (
+  //         <Badge className="text-green-500 bg-green-100 border-green-500 hover:bg-green-200">
+  //           Đã kích hoạt
+  //         </Badge>
+  //       );
+  //     }
+  //     if (user.status == "Inactive") {
+  //       return (
+  //         <Badge className="text-red-500 bg-red-100 border-red-500 hover:bg-red-200">
+  //           Đã hủy kích hoạt
+  //         </Badge>
+  //       );
+  //     }
+  //     return <Badge variant="outline">{user.status}</Badge>;
+  //   },
+  // },
   {
     id: "actions",
     cell: ({ row }) => {
@@ -147,7 +132,7 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuLabel>Thao tác</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                navigator.clipboard.writeText(user.id.toString());
+                navigator.clipboard.writeText(user.accountId.toString());
                 toast("Đã sao chép.");
               }}
             >
@@ -155,10 +140,10 @@ export const columns: ColumnDef<User>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link to={`/product/${user.id}`}>Xem chi tiết tải khoản</Link>
+              <Link to={`/product/${user.accountId}`}>Xem chi tiết tải khoản</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link to={`/product/${user.id}/edit`}>Cập nhật thông tin</Link>
+              <Link to={`/product/${user.accountId}/edit`}>Cập nhật thông tin</Link>
             </DropdownMenuItem>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
