@@ -1,4 +1,3 @@
-import { Product } from "@/types/product";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
@@ -19,7 +18,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { ReactNode } from "react";
 import { toast } from "sonner";
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     header: "Hình ảnh",
     cell: ({ row }) => {
