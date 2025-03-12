@@ -19,7 +19,7 @@ import { toast } from "sonner";
 
 export const columns: ColumnDef<Order>[] = [
   {
-    accessorKey: "orderId",
+    accessorKey: "orderNumber",
     header: ({ column }) => {
       return (
         <Button
@@ -35,14 +35,14 @@ export const columns: ColumnDef<Order>[] = [
     cell: ({ row }) => {
       const order = row.original;
       return (
-        <Link to={`/order/${order.id}`} className="font-semibold">
-          {order.orderId}
+        <Link to={`/order/${order.orderId}`} className="font-semibold">
+          {order.orderNumber}
         </Link>
       );
     },
   },
   {
-    accessorKey: "customerName",
+    accessorKey: "accountFullName",
     header: ({ column }) => {
       return (
         <Button
@@ -57,22 +57,7 @@ export const columns: ColumnDef<Order>[] = [
     },
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="p-0 m-0 w-full justify-start"
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: "totals",
+    accessorKey: "total",
     header: ({ column }) => {
       return (
         <Button
@@ -87,29 +72,23 @@ export const columns: ColumnDef<Order>[] = [
     },
     cell: ({ row }) => {
       const order = row.original;
-      const subtotal = order.items.reduce(
-        (accumlator, currentValue) =>
-          accumlator + currentValue.price * currentValue.quantity,
-        0
-      );
-      const total = subtotal + order.shippingFee;
-      return <div>{formatCurrencyVND(total)}</div>;
+      return <div>{formatCurrencyVND(order.total)}</div>;
     },
-    sortingFn: (rowA, rowB) => {
-      const totalA =
-        rowA.original.items.reduce(
-          (accumlator, currentValue) =>
-            accumlator + currentValue.price * currentValue.quantity,
-          0
-        ) + rowA.original.shippingFee;
-      const totalB =
-        rowB.original.items.reduce(
-          (accumlator, currentValue) =>
-            accumlator + currentValue.price * currentValue.quantity,
-          0
-        ) + rowB.original.shippingFee;
-      return totalA - totalB;
-    },
+    // sortingFn: (rowA, rowB) => {
+    //   const totalA =
+    //     rowA.original.items.reduce(
+    //       (accumlator, currentValue) =>
+    //         accumlator + currentValue.price * currentValue.quantity,
+    //       0
+    //     ) + rowA.original.shippingFee;
+    //   const totalB =
+    //     rowB.original.items.reduce(
+    //       (accumlator, currentValue) =>
+    //         accumlator + currentValue.price * currentValue.quantity,
+    //       0
+    //     ) + rowB.original.shippingFee;
+    //   return totalA - totalB;
+    // },
   },
   {
     accessorKey: "orderDate",
@@ -147,43 +126,43 @@ export const columns: ColumnDef<Order>[] = [
     cell: ({ row }) => {
       const order = row.original;
       let status =
-        orderStatus.find((i) => i.value == order.status)?.label ?? order.status;
-      if (order.status == "Cancelled") {
+        orderStatus.find((i) => i.value == order.orderStatus)?.label ?? order.orderStatus;
+      if (order.orderStatus == "Cancelled") {
         return (
           <Badge className="text-gray-500 bg-gray-100 border-gray-500 hover:bg-gray-200">
             {status}
           </Badge>
         );
       }
-      if (order.status == "Delivered") {
+      if (order.orderStatus == "Delivered") {
         return (
           <Badge className="text-green-500 bg-green-100 border-green-500 hover:bg-green-200">
             {status}
           </Badge>
         );
       }
-      if (order.status == "Pending") {
+      if (order.orderStatus == "Pending") {
         return (
           <Badge className="text-yellow-500 bg-yellow-100 border-yellow-500 hover:bg-yellow-200">
             {status}
           </Badge>
         );
       }
-      if (order.status == "Processing") {
+      if (order.orderStatus == "Processing") {
         return (
           <Badge className="text-purple-500 bg-purple-100 border-purple-500 hover:bg-purple-200">
             {status}
           </Badge>
         );
       }
-      if (order.status == "Returned") {
+      if (order.orderStatus == "Returned") {
         return (
           <Badge className="text-orange-500 bg-orange-100 border-orange-500 hover:bg-orange-200">
             {status}
           </Badge>
         );
       }
-      if (order.status == "Shipped") {
+      if (order.orderStatus == "Shipped") {
         return (
           <Badge className="text-blue-500 bg-blue-100 border-blue-500 hover:bg-blue-200">
             {status}
@@ -217,14 +196,14 @@ export const columns: ColumnDef<Order>[] = [
               Sao chép mã đơn hàng
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <Link to={`/order/${order.id}`}>
+            <Link to={`/order/${order.orderId}`}>
               <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-red-500"
               onClick={() => {
-                console.log(order.id);
+                console.log(order.orderId);
               }}
             >
               Xóa đơn hàng

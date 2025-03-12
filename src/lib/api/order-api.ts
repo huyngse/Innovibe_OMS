@@ -10,6 +10,15 @@ export const handleApiError = (error: any) => {
     }
 };
 
+export const getOrderById = async (id: Number) => {
+    try {
+        const { data } = await axiosClient.get(`/api/orders/${id}`);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+}
+
 export const getOrderByUserId = async (id: string) => {
     try {
         const { data } = await axiosClient.get(`/api/orders/account/${id}`);
@@ -18,6 +27,16 @@ export const getOrderByUserId = async (id: string) => {
         return handleApiError(error);
     }
 }
+
+export const getAllOrders = async () => {
+    try {
+        const { data } = await axiosClient.get(`/api/orders`);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+}
+
 type CreateOrderRequest = {
     accountId: string,
     orderStatus: string,
@@ -38,3 +57,4 @@ export const createOrder = async (request: CreateOrderRequest) => {
         return handleApiError(error);
     }
 }
+
