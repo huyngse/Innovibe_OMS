@@ -1,22 +1,27 @@
 
 import { getAllProduct, getProductById } from '@/lib/api/product-api';
-import { Product } from '@/types/product';
+import { Product, ProductImage } from '@/types/product';
 import { create } from 'zustand';
 
 
 interface ProductState {
     products: Product[];
     product?: Product;
+    images: ProductImage[];
     loading: boolean;
     error: string | null;
     fetchProducts: () => Promise<void>;
     fetchProduct: (id: number) => Promise<void>;
     renderKey: number;
     rerender: () => void;
+    setImages: (images: ProductImage[]) => void;
+    addImage: (image: ProductImage) => void;
+    removeImage: (image: ProductImage) => void;
 }
 
 const useProductStore = create<ProductState>((set) => ({
     products: [],
+    images: [],
     loading: false,
     product: undefined,
     error: null,
@@ -50,6 +55,15 @@ const useProductStore = create<ProductState>((set) => ({
             set({ loading: false, error: error.message });
         }
     },
+    setImages: (images) => {
+        set({ images: images });
+    },
+    addImage: (image) => {
+        set(prev => ({ images: [...prev.images, image] }))
+    },
+    removeImage: (image) => {
+        set(prev => ({ images: prev.images.filter(i => i.imageId != image.imageId) }));
+    }
 }));
 
 export default useProductStore;

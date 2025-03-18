@@ -117,7 +117,7 @@ export const columns: ColumnDef<Category>[] = [
             <DropdownMenuItem
               className="text-red-500"
               onClick={() => {
-                console.log(category.categoryName);
+                console.log(category.name);
               }}
             >
               Xóa danh mục

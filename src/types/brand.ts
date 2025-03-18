@@ -1,6 +1,6 @@
 export type Brand = {
-  id: number;
-  brandName: string;
+  brandId: number;
+  name: string;
   description: string;
   createdAt: string;
   updatedAt: string;

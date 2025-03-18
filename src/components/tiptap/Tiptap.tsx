@@ -58,6 +58,7 @@ const MenuBar = () => {
     <>
       <div className="flex gap-2 mt-2 flex-wrap sticky top-0 bg-[#fff] z-10 py-2 px-2 border-b mb-4">
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={
@@ -70,6 +71,7 @@ const MenuBar = () => {
           <Bold className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editor.can().chain().focus().toggleItalic().run()}
           className={
@@ -82,6 +84,7 @@ const MenuBar = () => {
           <Italic className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editor.can().chain().focus().toggleStrike().run()}
           className={
@@ -94,6 +97,7 @@ const MenuBar = () => {
           <Strikethrough className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleCode().run()}
           disabled={!editor.can().chain().focus().toggleCode().run()}
           className={
@@ -106,12 +110,14 @@ const MenuBar = () => {
           <Code className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().unsetAllMarks().run()}
           variant={"outline"}
         >
           <Eraser className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().clearNodes().run()}
           variant={"outline"}
         >
@@ -131,6 +137,7 @@ const MenuBar = () => {
           className="w-10 p-1"
         />
         <Button
+          type="button"
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={
             editor.isActive("paragraph")
@@ -142,6 +149,7 @@ const MenuBar = () => {
           <Pilcrow className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
@@ -155,6 +163,7 @@ const MenuBar = () => {
           <Heading1 className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
@@ -168,6 +177,7 @@ const MenuBar = () => {
           <Heading2 className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 3 }).run()
           }
@@ -181,6 +191,7 @@ const MenuBar = () => {
           <Heading3 className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 4 }).run()
           }
@@ -194,6 +205,7 @@ const MenuBar = () => {
           <Heading4 className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 5 }).run()
           }
@@ -207,6 +219,7 @@ const MenuBar = () => {
           <Heading5 className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 6 }).run()
           }
@@ -220,6 +233,7 @@ const MenuBar = () => {
           <Heading6 className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={
             editor.isActive("bulletList")
@@ -231,6 +245,7 @@ const MenuBar = () => {
           <List className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={
             editor.isActive("orderedList")
@@ -242,12 +257,14 @@ const MenuBar = () => {
           <ListOrdered className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
           variant={"outline"}
         >
           <MinusIcon className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={
             editor.isActive("codeBlock")
@@ -259,6 +276,7 @@ const MenuBar = () => {
           <SquareCode className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={
             editor.isActive("blockquote")
@@ -270,18 +288,21 @@ const MenuBar = () => {
           <TextQuote className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
           variant={"outline"}
         >
           <WrapText className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().setHardBreak().run()}
           variant={"outline"}
         >
           <CornerDownLeft className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
           variant={"outline"}
@@ -289,13 +310,18 @@ const MenuBar = () => {
           <Undo className="w-4 h-4" />
         </Button>
         <Button
+          type="button"
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}
           variant={"outline"}
         >
           <Redo className="w-4 h-4" />
         </Button>
-        <Button onClick={() => handleAddYoutube()} variant={"outline"}>
+        <Button
+          type="button"
+          onClick={() => handleAddYoutube()}
+          variant={"outline"}
+        >
           <FaYoutube className="w-4 h-4" />
         </Button>
       </div>

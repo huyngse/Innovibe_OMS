@@ -1,6 +1,6 @@
 export type Category = {
-    id: number;
-    categoryName: string;
+    categoryId: number;
+    name: string;
     totalProducts: number;
     createdAt: string;
     updatedAt: string;
