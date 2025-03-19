@@ -10,7 +10,7 @@ const ProductsPage = () => {
   const productStore = useProductStore();
   useEffect(() => {
     productStore.fetchProducts();
-  }, []);
+  }, [productStore.renderKey]);
 
   if (productStore.loading) return <Loader />;
   return (

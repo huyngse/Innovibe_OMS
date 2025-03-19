@@ -15,11 +15,50 @@ import { Product } from "@/types/product";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
 import DeleteProductDialog from "../delete-product-dialog";
+import { updateProductStatus } from "@/lib/api/product-api";
+import { toast } from "react-toastify";
+import useProductStore from "@/stores/use-product-store";
 
 const ActionMenu = ({ product }: { product: Product }) => {
   const [openDeleteDialog, setopenDeleteDialog] = useState(false);
+  const productStore = useProductStore();
+  const handleUpdateStatus = async (
+    status:
+      | "In Stock"
+      | "Out of Stock"
+      | "Pending"
+      | "In Transit"
+      | "Discontinued"
+  ) => {
+    const result = await updateProductStatus(product.productId, status);
+    if (result.error) {
+      toast.error("Cập nhật sản phẩm thất bại", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.success("Cập nhật sản phẩm thành công", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        productStore.rerender();
+      }, 100);
+    }
+  };
   return (
     <>
       <DropdownMenu>
@@ -54,11 +93,29 @@ const ActionMenu = ({ product }: { product: Product }) => {
             <DropdownMenuSubTrigger>Thay đổi trạng thái</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem>Còn hàng</DropdownMenuItem>
-                <DropdownMenuItem>Hết hàng</DropdownMenuItem>
-                <DropdownMenuItem>Đang vận chuyển</DropdownMenuItem>
-                <DropdownMenuItem>Đợi duyệt</DropdownMenuItem>
-                <DropdownMenuItem>Ngừng kinh doanh</DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleUpdateStatus("In Stock")}
+                >
+                  Còn hàng
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleUpdateStatus("Out of Stock")}
+                >
+                  Hết hàng
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleUpdateStatus("In Transit")}
+                >
+                  Đang vận chuyển
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdateStatus("Pending")}>
+                  Đợi duyệt
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleUpdateStatus("Discontinued")}
+                >
+                  Ngừng kinh doanh
+                </DropdownMenuItem>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>

@@ -59,3 +59,12 @@ export const deleteProduct = async (productId: number) => {
         return handleApiError(error);
     }
 }
+
+export const updateProductStatus = async (id: number, status: string) => {
+    try {
+        const { data } = await axiosClient.put(`/api/products/${id}/status?status=${status}`);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+}

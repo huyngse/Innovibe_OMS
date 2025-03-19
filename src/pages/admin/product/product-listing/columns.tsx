@@ -132,6 +132,18 @@ export const columns: ColumnDef<Product>[] = [
             Đang Vận Chuyển
           </Badge>
         );
+      } else if (product.status == "Discontinued") {
+        badge = (
+          <Badge className="bg-blue-100 border border-gray-500 text-gray-500 hover:bg-gray-200">
+            Ngừng kinh doanh
+          </Badge>
+        );
+      } else if (product.status == "Pending") {
+        badge = (
+          <Badge className="bg-blue-100 border border-yellow-500 text-yellow-500 hover:bg-yellow-200">
+              Đợi duyệt
+          </Badge>
+        );
       }
       return <div>{badge}</div>;
     },
