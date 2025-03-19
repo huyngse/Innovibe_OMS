@@ -50,3 +50,12 @@ export const addProduct = async (request: AddProductRequest) => {
         return handleApiError(error);
     }
 }
+
+export const deleteProduct = async (productId: number) => {
+    try {
+        const { data } = await axiosClient.delete(`/api/products/${productId}`);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+}
