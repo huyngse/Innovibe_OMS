@@ -14,7 +14,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 export const columns: ColumnDef<Category>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "categoryId",
     header: ({ column }) => {
       return (
         <Button
@@ -29,7 +29,7 @@ export const columns: ColumnDef<Category>[] = [
     },
   },
   {
-    accessorKey: "categoryName",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -59,7 +59,7 @@ export const columns: ColumnDef<Category>[] = [
     },
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "createAt",
     header: ({ column }) => {
       return (
         <Button
@@ -74,11 +74,11 @@ export const columns: ColumnDef<Category>[] = [
     },
     cell: ({ row }) => {
       const category = row.original;
-      return <div>{formatDate(new Date(category.createdAt))}</div>;
+      return <div>{formatDate(new Date(category.createAt))}</div>;
     },
   },
   {
-    accessorKey: "updatedAt",
+    accessorKey: "updateAt",
     header: ({ column }) => {
       return (
         <Button
@@ -93,7 +93,11 @@ export const columns: ColumnDef<Category>[] = [
     },
     cell: ({ row }) => {
       const category = row.original;
-      return <div>{formatDate(new Date(category.updatedAt))}</div>;
+      return category.updateAt ? (
+        <div>{formatDate(new Date(category.updateAt))}</div>
+      ) : (
+        ""
+      );
     },
   },
   {

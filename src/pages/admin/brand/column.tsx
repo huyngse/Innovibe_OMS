@@ -14,7 +14,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 export const columns: ColumnDef<Brand>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "brandId",
     header: ({ column }) => {
       return (
         <Button
@@ -29,7 +29,7 @@ export const columns: ColumnDef<Brand>[] = [
     },
   },
   {
-    accessorKey: "brandName",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -48,7 +48,7 @@ export const columns: ColumnDef<Brand>[] = [
     header: " Mô tả",
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "createAt",
     header: ({ column }) => {
       return (
         <Button
@@ -63,11 +63,11 @@ export const columns: ColumnDef<Brand>[] = [
     },
     cell: ({ row }) => {
       const category = row.original;
-      return <div>{formatDate(new Date(category.createdAt))}</div>;
+      return <div>{formatDate(new Date(category.createAt))}</div>;
     },
   },
   {
-    accessorKey: "updatedAt",
+    accessorKey: "updateAt",
     header: ({ column }) => {
       return (
         <Button
@@ -81,14 +81,18 @@ export const columns: ColumnDef<Brand>[] = [
       );
     },
     cell: ({ row }) => {
-      const category = row.original;
-      return <div>{formatDate(new Date(category.updatedAt))}</div>;
+      const brand = row.original;
+      return brand.updateAt ? (
+        <div>{formatDate(new Date(brand.updateAt))}</div>
+      ) : (
+        ""
+      );
     },
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const category = row.original;
+      const brand = row.original;
 
       return (
         <DropdownMenu>
@@ -106,7 +110,7 @@ export const columns: ColumnDef<Brand>[] = [
             <DropdownMenuItem
               className="text-red-500"
               onClick={() => {
-                console.log(category.name);
+                console.log(brand.name);
               }}
             >
               Xóa thương hiệu

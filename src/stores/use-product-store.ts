@@ -62,7 +62,7 @@ const useProductStore = create<ProductState>((set) => ({
         set(prev => ({ images: [...prev.images, image] }))
     },
     removeImage: (image) => {
-        set(prev => ({ images: prev.images.filter(i => i.imageId != image.imageId) }));
+        set(prev => ({ images: prev.images.filter(i => i.imageURL != image.imageURL) }));
     }
 }));
 

@@ -14,7 +14,7 @@ export const uploadImage = async (imageFile: File) => {
     try {
         const formData = new FormData();
         formData.append('file', imageFile);
-        const { data } = await axiosClientMultipart.post(`/api/images/upload`);
+        const { data } = await axiosClientMultipart.post(`/api/images/upload-image`, formData);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);

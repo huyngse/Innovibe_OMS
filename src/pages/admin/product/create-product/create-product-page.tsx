@@ -25,7 +25,7 @@ import DropZone from "./drop-zone";
 import Tiptap from "@/components/tiptap/Tiptap";
 import useBrandStore from "@/stores/use-brand-store";
 import useCategoryStore from "@/stores/use-category-store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Loader from "@/components/loader";
 import {
   Popover,
@@ -33,7 +33,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, LoaderIcon } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -42,18 +42,24 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import useProductStore from "@/stores/use-product-store";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { addProduct } from "@/lib/api/product-api";
 
 const CreateProductPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   const brandStore = useBrandStore();
   const categoryStore = useCategoryStore();
+  const productStore = useProductStore();
   const ProductSchema = z.object({
-    id: z.number().int(),
-    name: z.string().min(1, "Product name is required"),
-    description: z.string().min(1, "Description is required"),
-    price: z.number().positive("Price must be a positive number"),
+    name: z.string().min(1, "Vui lòng nhập tên sản phẩm"),
+    description: z.string().min(1, "Vui lòng nhập mô tả sản phẩm"),
+    price: z.number().positive("Price must be a positive number").min(1000),
     quantity: z.number().int().nonnegative("Stock quantity cannot be negative"),
-    categoryId: z.number(),
-    brandId: z.number(),
+    categoryId: z.number({ required_error: "Vui lòng chọn danh mục sản phẩm" }),
+    brandId: z.number({ required_error: "Vui lòng chọn thương hiệu sản phẩm" }),
     status: z.enum([
       "In Stock",
       "Out of Stock",
@@ -61,15 +67,67 @@ const CreateProductPage = () => {
       "In Transit",
       "Discontinued",
     ]),
-    image: z.array(z.object({ imageURL: z.string(), position: z.number() })),
+    image: z
+      .array(z.object({ imageURL: z.string(), position: z.number() }))
+      .optional(),
   });
   const form = useForm<z.infer<typeof ProductSchema>>({
     resolver: zodResolver(ProductSchema),
-    defaultValues: {},
+    defaultValues: {
+      brandId: undefined,
+      categoryId: undefined,
+      description: "",
+      image: [],
+      name: "",
+      price: 10000,
+      quantity: 10,
+      status: "In Stock",
+    },
   });
 
-  function onSubmit(values: z.infer<typeof ProductSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof ProductSchema>) {
+    setIsSubmitting(true);
+    console.log({
+      ...values,
+      image: productStore.images.map((image) => ({
+        imageURL: image.imageURL,
+        position: image.position,
+      })),
+    });
+    const result = await addProduct({
+      ...values,
+      image: productStore.images.map((image) => ({
+        imageURL: image.imageURL,
+        position: image.position,
+      })),
+    });
+    if (result.error) {
+      toast.error("Thêm sản phẩm thất bại", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.success("Thêm sản phẩm thành công", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        navigate("/product");
+      }, 1000);
+    }
+    setIsSubmitting(false);
   }
   useEffect(() => {
     brandStore.fetchBrands();
@@ -93,7 +151,7 @@ const CreateProductPage = () => {
     <div className="flex flex-col">
       <Header title="Sản phẩm" href="/product" currentPage="Tạo sản phẩm mới" />
       <div className="p-5 flex-1 overflow-auto">
-        <div className="col-span-2">
+        <div className="col-span-2 mb-2">
           <DropZone />
         </div>
         <Form {...form}>
@@ -125,6 +183,9 @@ const CreateProductPage = () => {
                       placeholder="Giá sản phẩm"
                       {...field}
                       type="number"
+                      min={1000}
+                      max={1000000000}
+                      onChange={(event) => field.onChange(+event.target.value)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -160,6 +221,9 @@ const CreateProductPage = () => {
                       placeholder="Nhập số lượng tồn kho"
                       {...field}
                       type="number"
+                      min={0}
+                      max={100000}
+                      onChange={(event) => field.onChange(+event.target.value)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -173,7 +237,10 @@ const CreateProductPage = () => {
                 <FormItem>
                   <FormLabel>Trạng thái sản phẩm</FormLabel>
                   <div className="flex">
-                    <Select onValueChange={field.onChange}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Chọn trạng thái sản phẩm" />
@@ -330,8 +397,16 @@ const CreateProductPage = () => {
               )}
             />
 
-            <Button type="submit" className="col-span-2">
-              Tạo
+            <Button
+              type="submit"
+              className="col-span-2"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <LoaderIcon className="animate-spin" />
+              ) : (
+                "Xác nhận"
+              )}
             </Button>
           </form>
         </Form>

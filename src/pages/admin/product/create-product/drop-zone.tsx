@@ -1,3 +1,4 @@
+import Loader from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,27 +10,44 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { uploadImage } from "@/lib/api/image-api";
+import useProductStore from "@/stores/use-product-store";
+import { ProductImage } from "@/types/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowDownToLine, Plus } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { z } from "zod";
 
 const formSchema = z.object({
-  imageURL: z.string().url().min(2).max(50),
+  imageURL: z.string().url().min(2).max(1024),
   position: z.number(),
 });
 const DropZone = () => {
-  const [imagePreviews, setImagePreviews] = useState<any>([]);
+  const productStore = useProductStore();
+  const [isUploading, setIsUploading] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const newPreviews = acceptedFiles.map((file) => {
-      return Object.assign(file, {
-        preview: URL.createObjectURL(file),
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+    setIsUploading(true);
+    const result = await uploadImage(acceptedFiles[0]);
+    if (result.error) {
+      toast.error("Tải lên ảnh thất bại", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
-    });
-    setImagePreviews((prevPreviews: any) => [...prevPreviews, ...newPreviews]);
+    } else {
+      form.setValue("imageURL", result.data.imageURL);
+      form.setValue("position", productStore.images.length);
+    }
+    setIsUploading(false);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -37,10 +55,8 @@ const DropZone = () => {
     multiple: true,
   });
 
-  const handleRemoveImage = (index: number) => {
-    setImagePreviews((prevPreviews: any) =>
-      prevPreviews.filter((_: any, i: number) => i !== index)
-    );
+  const handleRemoveImage = (image: ProductImage) => {
+    productStore.removeImage(image);
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,7 +68,13 @@ const DropZone = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    productStore.addImage({
+      imageId: 0,
+      imageURL: values.imageURL,
+      position: values.position,
+      productId: 0,
+    });
+    form.reset();
   }
 
   return (
@@ -70,7 +92,9 @@ const DropZone = () => {
                   <FormControl>
                     <Input placeholder="Nhập URL" {...field} />
                   </FormControl>
-                  <FormDescription>Nhập URL hình ảnh hoặc tải lên ảnh sản phẩm</FormDescription>
+                  <FormDescription>
+                    Nhập URL hình ảnh hoặc tải lên ảnh sản phẩm
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -87,30 +111,37 @@ const DropZone = () => {
               isDragActive ? "border-blue-500" : "border-gray-500"
             }`}
           >
-            <ArrowDownToLine className="size-20 text-gray-500" />
-            <input {...getInputProps()} />
-            {isDragActive ? (
-              <p className="text-blue-500">Thả hình ảnh vào đây...</p>
+            {isUploading ? (
+              <Loader variant="inline" />
             ) : (
-              <p className="text-gray-500 text-sm">
-                Kéo và thả hình ảnh hoặc nhấp để chọn (cho phép nhiều hình ảnh)
-              </p>
+              <>
+                <ArrowDownToLine className="size-20 text-gray-500" />
+                <input {...getInputProps()} />
+                {isDragActive ? (
+                  <p className="text-blue-500">Thả hình ảnh vào đây...</p>
+                ) : (
+                  <p className="text-gray-500 text-sm">
+                    Kéo và thả hình ảnh hoặc nhấp để chọn (cho phép nhiều hình
+                    ảnh)
+                  </p>
+                )}
+              </>
             )}
           </div>
         </div>
 
-        {imagePreviews.length > 0 && (
-          <div className="mt-4 grid grid-cols-3 gap-4">
-            {imagePreviews.map((file: any, index: number) => (
+        {productStore.images.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-4">
+            {productStore.images.map((image: ProductImage, index: number) => (
               <div key={index} className="relative">
                 <img
-                  src={file.preview}
+                  src={image.imageURL}
                   alt={`Preview ${index}`}
                   className="w-24 h-24 object-cover rounded-lg shadow-lg"
                 />
                 <button
                   type="button"
-                  onClick={() => handleRemoveImage(index)}
+                  onClick={() => handleRemoveImage(image)}
                   className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center"
                 >
                   ×
