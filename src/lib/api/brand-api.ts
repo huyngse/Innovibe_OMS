@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { axiosClient } from './config/axios-client';
 
 export const handleApiError = (error: any) => {
@@ -18,3 +19,16 @@ export const getAllBrands = async () => {
         return handleApiError(error);
     }
 }
+export const createBrand = async (formData: { name: string; description: string }) => {
+    try {
+        const payload = {
+            name: formData.name,
+            description: formData.description,
+        };
+        const { data } = await axiosClient.post(`/api/brands`, payload);
+        toast.success("Thêm mới thương hiệu thành công"); 
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+};
