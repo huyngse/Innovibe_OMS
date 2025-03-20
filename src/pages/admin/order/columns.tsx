@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { orderStatus } from "@/constants/order-status";
 import { formatCurrencyVND } from "@/lib/currency";
 import { formatDateTime } from "@/lib/datetime";
 import { Order } from "@/types/order";
@@ -16,6 +14,20 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { Select, Tag } from "antd";
+import { useState } from "react";
+import { updateOrderStatus } from "@/lib/api/order-api";
+
+const { Option } = Select;
+
+const statusOptions = {
+  Cancelled: { label: "Hủy", color: "red" },
+  Paid: { label: "Đã thanh toán", color: "green" },
+  Delivered: { label: "Đã giao", color: "blue" },
+  Pending: { label: "Đang chờ", color: "orange" },
+  Processing: { label: "Đang xử lý", color: "purple" },
+  Shipped: { label: "Đã vận chuyển", color: "cyan" },
+};
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -74,21 +86,6 @@ export const columns: ColumnDef<Order>[] = [
       const order = row.original;
       return <div>{formatCurrencyVND(order.total)}</div>;
     },
-    // sortingFn: (rowA, rowB) => {
-    //   const totalA =
-    //     rowA.original.items.reduce(
-    //       (accumlator, currentValue) =>
-    //         accumlator + currentValue.price * currentValue.quantity,
-    //       0
-    //     ) + rowA.original.shippingFee;
-    //   const totalB =
-    //     rowB.original.items.reduce(
-    //       (accumlator, currentValue) =>
-    //         accumlator + currentValue.price * currentValue.quantity,
-    //       0
-    //     ) + rowB.original.shippingFee;
-    //   return totalA - totalB;
-    // },
   },
   {
     accessorKey: "orderDate",
@@ -125,51 +122,58 @@ export const columns: ColumnDef<Order>[] = [
     },
     cell: ({ row }) => {
       const order = row.original;
-      let status =
-        orderStatus.find((i) => i.value == order.orderStatus)?.label ?? order.orderStatus;
-      if (order.orderStatus == "Cancelled") {
-        return (
-          <Badge className="text-gray-500 bg-gray-100 border-gray-500 hover:bg-gray-200">
-            {status}
-          </Badge>
-        );
-      }
-      if (order.orderStatus == "Delivered") {
-        return (
-          <Badge className="text-green-500 bg-green-100 border-green-500 hover:bg-green-200">
-            {status}
-          </Badge>
-        );
-      }
-      if (order.orderStatus == "Pending") {
-        return (
-          <Badge className="text-yellow-500 bg-yellow-100 border-yellow-500 hover:bg-yellow-200">
-            {status}
-          </Badge>
-        );
-      }
-      if (order.orderStatus == "Processing") {
-        return (
-          <Badge className="text-purple-500 bg-purple-100 border-purple-500 hover:bg-purple-200">
-            {status}
-          </Badge>
-        );
-      }
-      if (order.orderStatus == "Returned") {
-        return (
-          <Badge className="text-orange-500 bg-orange-100 border-orange-500 hover:bg-orange-200">
-            {status}
-          </Badge>
-        );
-      }
-      if (order.orderStatus == "Shipped") {
-        return (
-          <Badge className="text-blue-500 bg-blue-100 border-blue-500 hover:bg-blue-200">
-            {status}
-          </Badge>
-        );
-      }
-      return <div>{status}</div>;
+      const statusInfo = statusOptions[order.orderStatus as keyof typeof statusOptions];
+      const [loading, setLoading] = useState(false);
+      const [currentStatus, setCurrentStatus] = useState(order.orderStatus);
+
+      return (
+        <Select
+          value={currentStatus}
+          style={{ width: 150 }}
+          loading={loading}
+          onChange={async (value) => {
+            setLoading(true);
+            try {
+              const response = await updateOrderStatus(order.orderId, value);
+              if (response.error === null) {
+                toast.success("Cập nhật trạng thái thành công");
+                setCurrentStatus(value);
+              } else {
+                toast.error(response.error || "Lỗi khi cập nhật trạng thái");
+              }
+            } catch (error) {
+              toast.error("Lỗi khi cập nhật trạng thái");
+            } finally {
+              setLoading(false);
+            }
+          }}
+          optionLabelProp="label"
+        >
+          {Object.entries(statusOptions).map(([value, { label, color }]) => (
+            <Option
+              key={value}
+              value={value}
+              label={
+                <Tag color={color} style={{ width: "100%", margin: 0, textAlign: "center" }}>
+                  {label}
+                </Tag>
+              }
+            >
+              <Tag
+                color={color}
+                style={{
+                  width: "100%",
+                  margin: 0,
+                  padding: "4px 8px",
+                  textAlign: "center",
+                }}
+              >
+                {label}
+              </Tag>
+            </Option>
+          ))}
+        </Select>
+      );
     },
   },
   {
@@ -190,7 +194,7 @@ export const columns: ColumnDef<Order>[] = [
             <DropdownMenuItem
               onClick={() => {
                 navigator.clipboard.writeText(order.orderId.toString());
-                toast("Đã sao chép.")
+                toast("Đã sao chép.");
               }}
             >
               Sao chép mã đơn hàng
