@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
 import { useState } from "react";
-import { Modal, Form, Input as AntdInput } from "antd"; 
+import { Modal, Form, Input as AntdInput } from "antd";
 import { createBrand } from "@/lib/api/brand-api";
 import useBrandStore from "@/stores/use-brand-store";
 
 const ToolsPanel = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false); 
-  const [form] = Form.useForm(); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [form] = Form.useForm();
   const fetchBrands = useBrandStore((state) => state.fetchBrands);
   const showModal = () => {
     setIsModalOpen(true);
@@ -16,14 +16,17 @@ const ToolsPanel = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    form.resetFields(); 
+    form.resetFields();
   };
 
-  const handleSubmit = async (values: { name: string; description: string }) => {
+  const handleSubmit = async (values: {
+    name: string;
+    description: string;
+  }) => {
     const result = await createBrand(values);
     if (result.error === null) {
-      setIsModalOpen(false); 
-      form.resetFields(); 
+      setIsModalOpen(false);
+      form.resetFields();
       await fetchBrands();
     }
   };
@@ -46,10 +49,10 @@ const ToolsPanel = () => {
       </div>
 
       <Modal
-        title="Tạo mới thương hiệu" 
+        title="Tạo mới thương hiệu"
         open={isModalOpen}
         onCancel={handleCancel}
-        footer={null} 
+        footer={null}
       >
         <Form
           form={form}
@@ -58,9 +61,11 @@ const ToolsPanel = () => {
           initialValues={{ name: "", description: "" }}
         >
           <Form.Item
-            label="Tên thương hiệu" 
+            label="Tên thương hiệu"
             name="name"
-            rules={[{ required: true, message: "Vui lòng nhập tên thương hiệu!" }]} 
+            rules={[
+              { required: true, message: "Vui lòng nhập tên thương hiệu!" },
+            ]}
           >
             <AntdInput placeholder="Nhập tên thương hiệu" />
           </Form.Item>
@@ -68,7 +73,7 @@ const ToolsPanel = () => {
           <Form.Item
             label="Mô tả"
             name="description"
-            rules={[{ required: true, message: "Vui lòng nhập mô tả!" }]} 
+            rules={[{ required: true, message: "Vui lòng nhập mô tả!" }]}
           >
             <AntdInput placeholder="Nhập mô tả" />
           </Form.Item>
@@ -76,9 +81,7 @@ const ToolsPanel = () => {
           <Form.Item>
             <div className="flex gap-3 justify-end">
               <Button onClick={handleCancel}>Hủy</Button>
-              <Button type="primary" htmlType="submit">
-                Tạo
-              </Button> 
+              <Button type="submit">Tạo</Button>
             </div>
           </Form.Item>
         </Form>

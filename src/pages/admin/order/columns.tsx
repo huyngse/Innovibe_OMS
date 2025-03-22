@@ -122,7 +122,7 @@ export const columns: ColumnDef<Order>[] = [
     },
     cell: ({ row }) => {
       const order = row.original;
-      const statusInfo = statusOptions[order.orderStatus as keyof typeof statusOptions];
+      // const statusInfo = statusOptions[order.orderStatus as keyof typeof statusOptions];
       const [loading, setLoading] = useState(false);
       const [currentStatus, setCurrentStatus] = useState(order.orderStatus);
 
@@ -131,7 +131,7 @@ export const columns: ColumnDef<Order>[] = [
           value={currentStatus}
           style={{ width: 150 }}
           loading={loading}
-          onChange={async (value) => {
+          onChange={async (value: any) => {
             setLoading(true);
             try {
               const response = await updateOrderStatus(order.orderId, value);
