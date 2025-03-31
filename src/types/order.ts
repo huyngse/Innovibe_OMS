@@ -5,6 +5,8 @@ export type Order = {
     orderNumber: string,
     accountId: string,
     accountFullName: string,
+    phone: string,
+    email: string,
     orderDate: string,
     shippingAddress: string,
     total: number,

@@ -25,34 +25,34 @@ const statusOptions = {
   Returned: { label: "Đã trả hàng", color: "orange" },
   Delivered: { label: "Đã giao", color: "blue" },
   Pending: { label: "Chờ thanh toán", color: "orange" },
-  Processing: { label: "Đang xử lý", color: "purple" },
-  Shipped: { label: "Đã vận chuyển", color: "cyan" },
+  Processing: { label: "Chuẩn bị hàng", color: "purple" },
+  Shipped: { label: "Đã giao hàng", color: "cyan" },
 };
 
 export const columns: ColumnDef<Order>[] = [
-  {
-    accessorKey: "orderNumber",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="p-0 m-0 w-full justify-start"
-        >
-          Mã đơn hàng
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const order = row.original;
-      return (
-        <Link to={`/order/${order.orderId}`} className="font-semibold">
-          {order.orderNumber}
-        </Link>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "orderNumber",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //         className="p-0 m-0 w-full justify-start"
+  //       >
+  //         Mã đơn hàng
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     );
+  //   },
+  //   cell: ({ row }) => {
+  //     const order = row.original;
+  //     return (
+  //       <Link to={`/order/${order.orderId}`} className="font-semibold">
+  //         {order.orderNumber}
+  //       </Link>
+  //     );
+  //   },
+  // },
   {
     accessorKey: "accountFullName",
     header: ({ column }) => {
@@ -62,9 +62,38 @@ export const columns: ColumnDef<Order>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="p-0 m-0 w-full justify-start"
         >
-          Tên khách hàng
+          Khách hàng
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const order = row.original;
+      return (
+        <div>
+          <p className="font-semibold">{order.accountFullName}</p>
+          <p>{order.email ? order.email : "Không có email"}</p>
+          <p>{order.phone ? order.phone : "Không có số điện thoại"}</p>
+        </div>
+      );
+    },
+  },
+  {
+    id: "orderItems",
+    header: "Sản phẩm",
+    cell: ({ row }) => {
+      const order = row.original;
+      return (
+        <div className="flex flex-col gap-2">
+          {order.orderItems.map((item) => {
+            return (
+              <div key={item.productId} className="flex gap-2">
+                <img src={item.images[0].imageURL} alt="" className="size-6 object-contain bg-white drop-shadow rounded" />
+                <p className="font-semibold">{item.name} (x{item.quantity})</p>
+              </div>
+            );
+          })}
+        </div>
       );
     },
   },
@@ -154,7 +183,10 @@ export const columns: ColumnDef<Order>[] = [
               key={value}
               value={value}
               label={
-                <Tag color={color} style={{ width: "100%", margin: 0, textAlign: "center" }}>
+                <Tag
+                  color={color}
+                  style={{ width: "100%", margin: 0, textAlign: "center" }}
+                >
                   {label}
                 </Tag>
               }

@@ -4,7 +4,6 @@ import {
   CircleDollarSign,
   ClipboardList,
   Truck,
-  X,
   XIcon,
 } from "lucide-react";
 
@@ -39,12 +38,6 @@ const OrderStatus = ({ status }: { status: string }) => {
       label1: "Đã giao hàng",
       label2: "Hoàn tất đơn hàng",
       icon: Check,
-    },
-    {
-      value: "Cancelled",
-      label1: "Đã hủy",
-      label2: "Đã hủy đơn hàng",
-      icon: X,
     },
   ];
   const stageIndex = stages.findIndex((i) => i.value == status);
