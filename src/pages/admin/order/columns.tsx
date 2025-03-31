@@ -21,10 +21,10 @@ import { updateOrderStatus } from "@/lib/api/order-api";
 const { Option } = Select;
 
 const statusOptions = {
-  Cancelled: { label: "Hủy", color: "red" },
-  Paid: { label: "Đã thanh toán", color: "green" },
+  Cancelled: { label: "Đã hủy", color: "red" },
+  Returned: { label: "Đã trả hàng", color: "orange" },
   Delivered: { label: "Đã giao", color: "blue" },
-  Pending: { label: "Đang chờ", color: "orange" },
+  Pending: { label: "Chờ thanh toán", color: "orange" },
   Processing: { label: "Đang xử lý", color: "purple" },
   Shipped: { label: "Đã vận chuyển", color: "cyan" },
 };

@@ -1,5 +1,11 @@
 import { cn } from "@/lib/utils";
-import { Check, CircleDollarSign, ClipboardList, Truck } from "lucide-react";
+import {
+  Check,
+  CircleDollarSign,
+  ClipboardList,
+  Truck,
+  XIcon,
+} from "lucide-react";
 
 const OrderStatus = ({ status }: { status: string }) => {
   const stages = [
@@ -29,6 +35,14 @@ const OrderStatus = ({ status }: { status: string }) => {
     },
   ];
   const stageIndex = stages.findIndex((i) => i.value == status);
+  if (status == "Cancelled") {
+    return (
+      <div className="px-3 py-5 flex flex-col items-center justify-center gap-2 bg-red-100 border-b-2 border-red-500">
+        <XIcon className="border-2 border-red-500 size-10 p-2 rounded-full text-red-500"/>
+        <p className="text-red-500 font-semibold">Đã hủy đơn hàng</p>
+      </div>
+    );
+  }
   if (stageIndex == -1) return <p>Invalid status</p>;
   return (
     <div className="p-3">
@@ -38,7 +52,8 @@ const OrderStatus = ({ status }: { status: string }) => {
             key={index}
             className={cn(
               "flex-1 border-b-2 py-2 bg-gray-50",
-              index <= stageIndex && "text-green-500 border-green-500 bg-green-50",
+              index <= stageIndex &&
+                "text-green-500 border-green-500 bg-green-50",
               index == stageIndex && "border-b-4 bg-green-100"
             )}
           >

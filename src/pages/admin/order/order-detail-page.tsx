@@ -1,7 +1,8 @@
+import CancelOrderButton from "@/components/cancel-order-button";
 import Header from "@/components/header";
 import Loader from "@/components/loader";
 import OrderStatus from "@/components/order-status";
-import { Button } from "@/components/ui/button";
+import { updateOrderStatus } from "@/lib/api/order-api";
 import { formatCurrencyVND } from "@/lib/currency";
 import { formatDateTime } from "@/lib/datetime";
 import OrderNotfound from "@/pages/error/order-not-found";
@@ -14,11 +15,30 @@ import { toast } from "sonner";
 const OrderDetailPage = () => {
   const orderStore = useOrderStore();
   const { orderId } = useParams();
+  const checkPaymentStatus = async () => {
+    if (orderStore.order && orderStore.payment) {
+      if (orderStore.order.orderStatus == "Pending") {
+        if (orderStore.payment.status == "EXPIRED" || orderStore.payment.status == "CANCELLED") {
+          await updateOrderStatus(orderStore.order.orderId, "Cancelled");
+          orderStore.rerender();
+        } else if (orderStore.payment.status == "PAID") {
+          await updateOrderStatus(orderStore.order.orderId, "Processing");
+          orderStore.rerender();
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkPaymentStatus();
+  }, [orderStore.order, orderStore.payment]);
+
   useEffect(() => {
     if (orderId) {
       orderStore.fetchOrder(parseInt(orderId));
+      orderStore.fetchPayment(parseInt(orderId));
     }
-  }, []);
+  }, [orderStore.renderKey]);
 
   if (orderId == null) {
     return <OrderNotfound />;
@@ -47,6 +67,7 @@ const OrderDetailPage = () => {
   };
   if (orderStore.loading) return <Loader />;
   if (orderStore.order == undefined) return;
+  console.log(orderStore.payment?.status);
   return (
     <div className="flex flex-col h-screen">
       <Header
@@ -187,10 +208,36 @@ const OrderDetailPage = () => {
               <p className="text-gray-500">Thanh toán online</p>
             </div>
           </div>
+          <h3 className="text-lg font-semibold">Thông tin thanh toán</h3>
+          <div className="flex justify-between text-gray-500">
+            <p>Tổng đơn hàng:</p>
+            <p>{formatCurrencyVND(orderStore.payment?.amount ?? 0)}</p>
+          </div>
+          <div className="flex justify-between text-gray-500">
+            <p>Số tiền đã thanh toán</p>
+            <p>{formatCurrencyVND(orderStore.payment?.amountPaid ?? 0)}</p>
+          </div>
+          <div className="flex justify-between text-gray-500">
+            <p>Số tiền chưa thanh toán</p>
+            <p>{formatCurrencyVND(orderStore.payment?.amountRemaining ?? 0)}</p>
+          </div>
+          <div className="flex justify-between text-gray-500 text-lg">
+            <p>Trạng thái thanh toán:</p>
+            <p>
+              {orderStore.payment?.status == "EXPIRED"
+                ? "HẾT HẠN"
+                : orderStore.payment?.status == "PAID"
+                ? "ĐÃ THANH TOÁN"
+                : orderStore.payment?.status == "CANCELLED"
+                ? "ĐÃ HỦY THANH TOÁN"
+                : "CHƯA THANH TOÁN"}
+            </p>
+          </div>
         </div>
         <div className="flex justify-end gap-3 mb-3">
-          <Button variant={"outline"}>Hủy đơn hàng</Button>
-          {/* <Button>Mua lại</Button> */}
+          {orderStore.order.orderStatus != "Cancelled" && (
+            <CancelOrderButton order={orderStore.order} />
+          )}
         </div>
       </div>
     </div>
