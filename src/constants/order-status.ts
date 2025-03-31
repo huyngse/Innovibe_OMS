@@ -1,23 +1,18 @@
 export const orderStatus = [
     {
-        value: "Placed",
-        label: "Đã đặt",
-        description: "Chờ thành toán"
-    },
-    {
-        value: "Paid",
-        label: "Đã thanh toán",
-        description: "Chờ xác nhận"
+        value: "Pending",
+        label: "Đợi thanh toán",
+        description: "Chờ khách hàng thanh toán"
     },
     {
         value: "Processing",
-        label: "Đang chuẩn bị",
-        description: "Chờ đóng gói"
+        label: "Chuẩn bị hàng",
+        description: "Chuẩn bị hàng giao do vận chuyển"
     },
     {
         value: "Shipped",
-        label: "Đang vận chuyển",
-        description: "Chờ nhận hàng"
+        label: "Đang giao hàng",
+        description: "Đang giao hàng đến địa chỉ nhận hàng"
     },
     {
         value: "Delivered",
@@ -29,7 +24,7 @@ export const orderStatus = [
     },
     {
         value: "Returned",
-        label: "Trả hàng/Hoàn tiền",
+        label: "Trả hàng",
         description: "Đã trả hàng, hoàn tiền"
     },
 ];
