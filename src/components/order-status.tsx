@@ -4,6 +4,7 @@ import {
   CircleDollarSign,
   ClipboardList,
   Truck,
+  X,
   XIcon,
 } from "lucide-react";
 
@@ -16,22 +17,34 @@ const OrderStatus = ({ status }: { status: string }) => {
       icon: CircleDollarSign,
     },
     {
+      value: "Paid",
+      label1: "Đang xử lý",
+      label2: "Đã thanh toán",
+      icon: ClipboardList,
+    },
+    {
       value: "Processing",
       label1: "Đang chuẩn bị hàng",
-      label2: "Đã giao cho vận chuyển",
+      label2: "Đã chuẩn bị xong",
       icon: ClipboardList,
     },
     {
       value: "Shipped",
       label1: "Đang giao hàng",
-      label2: "Đã giao hàng",
+      label2: "Đang vận chuyển",
       icon: Truck,
     },
     {
       value: "Delivered",
-      label1: "Hoàn tất đơn hàng",
+      label1: "Đã giao hàng",
       label2: "Hoàn tất đơn hàng",
       icon: Check,
+    },
+    {
+      value: "Cancelled",
+      label1: "Đã hủy",
+      label2: "Đã hủy đơn hàng",
+      icon: X,
     },
   ];
   const stageIndex = stages.findIndex((i) => i.value == status);
@@ -62,8 +75,10 @@ const OrderStatus = ({ status }: { status: string }) => {
                 className={cn(
                   "border-2 border-black size-10 p-2 rounded-full",
                   index < stageIndex && "border-green-500",
-                  index == stageIndex &&
-                    "bg-green-500 text-white border-green-500"
+                  index === stageIndex &&
+                    "bg-green-500 text-white border-green-500",
+                  stage.value === "Cancelled" && index === stageIndex &&
+                    "bg-red-500 text-white border-red-500"
                 )}
               />
             </div>
