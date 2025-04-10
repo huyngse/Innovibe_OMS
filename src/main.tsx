@@ -1,5 +1,7 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import "yet-another-react-lightbox/styles.css";
+
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
