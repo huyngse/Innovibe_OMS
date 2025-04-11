@@ -9,13 +9,24 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
+import useProductStore from "@/stores/use-product-store";
+import { useState } from "react";
 
 const ToolPanel = () => {
+  const productStore = useProductStore();
+  const [keyword, setKeyword] = useState("");
+  const handleSearch = () => {
+    productStore.searchProduct(keyword);
+  };
   return (
     <div className="grid grid-cols-12 pb-5 gap-5">
       <div className="col-span-4 flex gap-3">
-        <Input placeholder="Nhập để tìm kiếm" />
-        <Button>
+        <Input
+          placeholder="Nhập để tìm kiếm"
+          onChange={(event) => setKeyword(event.target.value)}
+          value={keyword}
+        />
+        <Button onClick={handleSearch}>
           <Search />
         </Button>
       </div>
@@ -36,7 +47,7 @@ const ToolPanel = () => {
         </Select>
       </div>
       <div className="col-span-2 flex">
-        <Link to={'/create-product'} className="w-full">
+        <Link to={"/create-product"} className="w-full">
           <Button className="w-full flex gap-3 items-center">
             <Plus />
             Tạo mới

@@ -71,13 +71,14 @@ const ProductDetailPage = () => {
             )}
 
             <p className="font-semibold">Giá sản phẩm</p>
-            <p className="text-lg">
+            <p className="font-bold">
               {productStore.product?.discount
                 ? formatCurrencyVND(productStore.product?.discount)
                 : formatCurrencyVND(productStore.product?.price)}
             </p>
-            <p className="text-xs line-through decoration-red-500 decoration-1 font-semibold mb-2">
-              {productStore.product?.discount != 0 &&
+            <p className="text-xs line-through decoration-red-500 decoration-1 font-semibold">
+              {productStore.product?.discount != null &&
+                productStore.product?.discount != 0 &&
                 formatCurrencyVND(productStore.product?.price)}
             </p>
             <p className="font-semibold">Doanh mục sản phẩm</p>

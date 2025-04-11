@@ -18,7 +18,7 @@ const ProductsPage = () => {
       <Header title="Tổng quan" href="/" currentPage="Danh sách sản phẩm" />
       <div className="p-5 flex-1 overflow-auto">
         <ToolPanel />
-        <DataTable columns={columns} data={productStore.products} />
+        <DataTable columns={columns} data={productStore.filteredProducts} />
       </div>
     </div>
   );

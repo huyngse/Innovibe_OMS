@@ -6,6 +6,7 @@ import { create } from 'zustand';
 
 interface ProductState {
     products: Product[];
+    filteredProducts: Product[];
     product?: Product;
     images: ProductImage[];
     loading: boolean;
@@ -17,10 +18,12 @@ interface ProductState {
     setImages: (images: ProductImage[]) => void;
     addImage: (image: ProductImage) => void;
     removeImage: (image: ProductImage) => void;
+    searchProduct: (keyword: string) => void;
 }
 
 const useProductStore = create<ProductState>((set) => ({
     products: [],
+    filteredProducts: [],
     images: [],
     loading: false,
     product: undefined,
@@ -34,7 +37,7 @@ const useProductStore = create<ProductState>((set) => ({
         try {
             const response = await getAllProduct();
             if (!response.error) {
-                set({ products: response.data, loading: false });
+                set({ products: response.data, filteredProducts: response.data, loading: false });
             } else {
                 set({ loading: false, error: response.error });
             }
@@ -63,7 +66,10 @@ const useProductStore = create<ProductState>((set) => ({
     },
     removeImage: (image) => {
         set(prev => ({ images: prev.images.filter(i => i.imageURL != image.imageURL) }));
-    }
+    },
+    searchProduct(keyword) {
+        set(prev => ({ filteredProducts: prev.products.filter(p => p.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())) }))
+    },
 }));
 
 export default useProductStore;

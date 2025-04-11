@@ -16,7 +16,6 @@ const ImageGallery = ({ images }: { images: ProductImage[] }) => {
         >
           <div className="flex flex-col gap-3 p-3">
             {images
-              .filter((image) => image.position != 0)
               .map((image: any, index: number) => {
                 return (
                   <AspectRatio ratio={1 / 1} key={index}>
@@ -55,7 +54,7 @@ const ImageGallery = ({ images }: { images: ProductImage[] }) => {
         index={imageIndex}
         slides={[
           primaryImage,
-          ...images.filter((image) => image.position != 0),
+          ...images,
         ].map((image) => ({ src: image?.imageURL ?? "" }))}
       />
     </>
