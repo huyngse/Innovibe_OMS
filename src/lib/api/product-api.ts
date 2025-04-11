@@ -51,6 +51,29 @@ export const addProduct = async (request: AddProductRequest) => {
     }
 }
 
+type UpdateProductRequest = {
+    name: string,
+    description: string,
+    price: number,
+    quantity: number,
+    status: string,
+    brandId: number,
+    categoryId: number,
+    image: {
+        imageURL: string,
+        position: number,
+    }[]
+}
+
+export const updateProduct = async (productId: number, request: UpdateProductRequest) => {
+    try {
+        const { data } = await axiosClient.put(`/api/products/${productId}`, request);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+}
+
 export const deleteProduct = async (productId: number) => {
     try {
         const { data } = await axiosClient.delete(`/api/products/${productId}`);

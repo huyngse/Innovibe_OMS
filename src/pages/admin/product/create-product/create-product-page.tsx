@@ -87,13 +87,6 @@ const CreateProductPage = () => {
 
   async function onSubmit(values: z.infer<typeof ProductSchema>) {
     setIsSubmitting(true);
-    console.log({
-      ...values,
-      image: productStore.images.map((image) => ({
-        imageURL: image.imageURL,
-        position: image.position,
-      })),
-    });
     const result = await addProduct({
       ...values,
       image: productStore.images.map((image) => ({

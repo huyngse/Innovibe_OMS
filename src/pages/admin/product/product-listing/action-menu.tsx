@@ -85,7 +85,7 @@ const ActionMenu = ({ product }: { product: Product }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to={`/product/${product.productId}/edit`}>
+            <Link to={`/edit-product/${product.productId}`}>
               Cập nhật sản phẩm
             </Link>
           </DropdownMenuItem>

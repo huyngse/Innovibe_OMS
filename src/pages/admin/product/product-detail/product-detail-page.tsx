@@ -7,8 +7,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import useProductStore from "@/stores/use-product-store";
 import Loader from "@/components/loader";
-import GoBackButton from "@/components/go-back-button";
 import { PencilLine } from "lucide-react";
+import Header from "@/components/header";
+import { Button } from "antd";
 
 const ProductDetailPage = () => {
   const { productId } = useParams();
@@ -21,25 +22,30 @@ const ProductDetailPage = () => {
   }, [productId]);
 
   const handleGoToEdit = () => {
-    navigate(`/product/${productStore.product?.productId}/edit`);
+    navigate(`/edit-product/${productStore.product?.productId}`);
   };
 
   if (productStore.loading) return <Loader />;
   if (productStore.product == null) return;
 
   return (
-    <div className="bg-gray-100 p-5">
-      <div className="mb-3 flex justify-between items-center">
-        <GoBackButton />
-        <button
-          onClick={handleGoToEdit}
-          className="flex gap-1 items-center font-semibold hover:text-orange-600 duration-200"
-        >
-          <PencilLine className="size-5 mt-1" />
-          Cập nhật thông tin sản phẩm
-        </button>
-      </div>
-      <div className="bg-white rounded p-5">
+    <div className="flex flex-col">
+      <Header
+        title="Sản phẩm"
+        href="/product"
+        currentPage="Chi tiết sản phẩm"
+      />
+      <div className="flex-1 rounded p-5">
+        <div className="justify-end flex">
+          <Button
+            onClick={handleGoToEdit}
+            className="flex gap-1 items-center font-semibold hover:text-orange-600 duration-200"
+          >
+            <PencilLine className="size-5 mt-1" />
+            Cập nhật thông tin sản phẩm
+          </Button>
+        </div>
+
         <h1 className="text-center font-bold text-2xl mb-5">
           Chi Tiết Sản Phẩm
         </h1>
@@ -80,6 +86,8 @@ const ProductDetailPage = () => {
             </p>
             <p className="font-semibold">Thương hiệu sản phẩm</p>
             <p className="text-lg mb-2">{productStore.product?.brand.name}</p>
+            <p className="font-semibold">Số lượng tồn kho</p>
+            <p className="text-lg mb-2">{productStore.product?.quantity}</p>
           </div>
           <ImageGallery images={productStore.product?.images} />
         </div>

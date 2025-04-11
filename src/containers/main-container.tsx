@@ -9,7 +9,7 @@ import OrdersPage from "@/pages/admin/order/orders-page";
 import CreateProductPage from "@/pages/admin/product/create-product/create-product-page";
 import ProductDetailPage from "@/pages/admin/product/product-detail/product-detail-page";
 import ProductsPage from "@/pages/admin/product/product-listing/products-page";
-import UpdateProductPage from "@/pages/admin/product/update-product-page";
+import UpdateProductPage from "@/pages/admin/product/update-product/update-product-page";
 import CreateUserPage from "@/pages/admin/user/create-user-page";
 import UpdateUserPage from "@/pages/admin/user/update-user-page";
 import UserDetail from "@/pages/admin/user/user-detail-page";
