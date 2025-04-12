@@ -45,7 +45,7 @@ const MainContainter = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/" element={<OrdersPage />} />
+        <Route path="/" element={<DashboardPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/user" element={<UsersPage />} />
         <Route path="/user/:userId" element={<UserDetail />} />
